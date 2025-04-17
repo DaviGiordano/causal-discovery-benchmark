@@ -36,6 +36,7 @@ from src.logging_config import setup_logging
 from src.mlflow_logger import MLflowLogger
 from flatten_dict import flatten
 import json
+import numpy as np
 
 ALL_ALGORITHMS_CONFIGS = "./configs/algorithms.yaml"
 ALL_DATA_CONFIGS = "./configs/dataset.yaml"
@@ -101,7 +102,14 @@ def run_experiment(
         true_adj = load_csv(data_params["true_adj_fpath"])
         true_graph = dag_adj_to_graph(true_adj, "upper_triangular")
         true_edges_dict = load_json(data_params["true_edges_dict"])
-
+        # Resample data if larger than 2000 samples
+        if len(data) > 2000:
+            logging.info(
+                f"Dataset size {len(data)} exceeds 2000, resampling to 2000 samples"
+            )
+            np.random.seed(42)
+            sample_indices = np.random.choice(len(data), size=2000, replace=False)
+            data = data[sample_indices]
         # Load selected model
         config_params = load_yaml(ALL_ALGORITHMS_CONFIGS)[algorithm_tag]
         model = get_discovery_algorithm(**config_params)
@@ -169,52 +177,52 @@ def run_experiment(
 if __name__ == "__main__":
 
     dataset_tags = (
-        # "adult_dataset",
-        "ruta_synth_normal_4000",
-        "ruta_synth_uniform_4000",
-        # "ruta_synth_normal_100",
-        # "ruta_synth_uniform_1000",
-        # "ruta_synth_normal_1000",
-        # "ruta_synth_uniform_10000",
-        # "ruta_synth_normal_10000",
-        # "csuite_cat_chain",
-        # "csuite_cat_collider",
-        # "csuite_cat_to_cts",
-        # "csuite_cts_to_cat",
-        # "csuite_linexp",
-        # "csuite_lingauss",
-        # "csuite_nonlingauss",
-        "csuite_nonlin_simpson",
-        # "csuite_symprod_simpson",
-        # "csuite_weak_arrows",
-        "csuite_weak_arrows_binary_t",
-        # "csuite_large_backdoor",
-        "csuite_large_backdoor_binary_t",
-        "csuite_mixed_simpson",
+        # # "adult_dataset",
+        # "ruta_synth_normal_4000",
+        # "ruta_synth_uniform_4000",
+        # # "ruta_synth_normal_100",
+        # # "ruta_synth_uniform_1000",
+        # # "ruta_synth_normal_1000",
+        # # "ruta_synth_uniform_10000",
+        # # "ruta_synth_normal_10000",
+        # # "csuite_cat_chain",
+        # # "csuite_cat_collider",
+        # # "csuite_cat_to_cts",
+        # # "csuite_cts_to_cat",
+        # # "csuite_linexp",
+        # # "csuite_lingauss",
+        # # "csuite_nonlingauss",
+        # "csuite_nonlin_simpson",
+        # # "csuite_symprod_simpson",
+        # # "csuite_weak_arrows",
+        # "csuite_weak_arrows_binary_t",
+        # # "csuite_large_backdoor",
+        # "csuite_large_backdoor_binary_t",
+        # "csuite_mixed_simpson",
         "csuite_mixed_confounding",
     )
     algorithm_tags = [
-        "pc_tetrad_01",
-        "pc_tetrad_05",
+        # "pc_tetrad_01",
+        # "pc_tetrad_05",
         "pc_tetrad_10",
-        "fges_tetrad_pd1",
-        "fges_tetrad_pd2",
-        "fges_tetrad_pd4",
-        "boss_tetrad_pd1",
-        "boss_tetrad_pd2",
-        "boss_tetrad_pd4",
-        "grasp_tetrad_pd1",
-        "grasp_tetrad_pd2",
-        "grasp_tetrad_pd4",
-        "directlingam_pd1",
-        "directlingam_pd2",
-        "directlingam_pd4",
-        "dagma_tetrad_pd1",
-        "dagma_tetrad_pd2",
-        "dagma_tetrad_pd4",
+        # "fges_tetrad_pd1",
+        # "fges_tetrad_pd2",
+        # "fges_tetrad_pd4",
+        # "boss_tetrad_pd1",
+        # "boss_tetrad_pd2",
+        # "boss_tetrad_pd4",
+        # "grasp_tetrad_pd1",
+        # "grasp_tetrad_pd2",
+        # "grasp_tetrad_pd4",
+        # "directlingam_pd1",
+        # "directlingam_pd2",
+        # "directlingam_pd4",
+        # "dagma_tetrad_pd1",
+        # "dagma_tetrad_pd2",
+        # "dagma_tetrad_pd4",
     ]
 
-    experiment_name = "focused_experiments_tetrad"
+    experiment_name = "resampled_focused_experiments_tetrad"
     MAX_RETRIES = 2
 
     for dataset_tag in tqdm(dataset_tags):
