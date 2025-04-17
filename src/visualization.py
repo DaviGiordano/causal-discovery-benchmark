@@ -140,9 +140,16 @@ class Plotter:
             Matplotlib figure object
         """
         # Convert graph to image
-        pyd = GraphUtils.to_pydot(graph)
+        try:
+            pyd = GraphUtils.to_pydot(graph)
+        except AttributeError as e:
+            raise e
+
         pyd.set_rankdir("LR")
-        graph_img = Image.open(BytesIO(pyd.create_png()))
+        try:
+            graph_img = Image.open(BytesIO(pyd.create_png()))
+        except AttributeError as e:
+            raise e
 
         if ax is None:
             fig = plt.figure(figsize=(6, 5))

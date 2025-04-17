@@ -44,7 +44,7 @@ def get_edge_adjacency_matrix(graph: GeneralGraph) -> np.ndarray:
     np.ndarray
         A symmetrical adjacency matrix where 1 indicates an edge between nodes
     """
-    nodes = graph.get_nodes()
+    nodes = graph.get_nodes().copy()
     n = len(nodes)
     edge_adj_matrix = np.zeros((n, n), dtype=int)
 
@@ -73,7 +73,7 @@ def get_graph_skeleton(graph: GeneralGraph) -> GeneralGraph:
         The skeleton with only undirected edges
     """
     # Create a new graph with the same nodes
-    nodes = graph.get_nodes()
+    nodes = graph.get_nodes().copy()
     skeleton = GeneralGraph(nodes)
 
     # For each pair of nodes, add an undirected edge if they're adjacent in the original graph

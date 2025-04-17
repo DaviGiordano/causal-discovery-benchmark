@@ -51,8 +51,13 @@ def str_to_edge_probabilities(graph_str: str) -> GeneralGraph:
         source = edge_components[0]
         target = edge_components[2]
 
-        if source > target:
-            source, target = target, source
+        try:
+            if int(source[1:]) > int(target[1:]):
+                source, target = target, source
+        except ValueError:
+            raise ValueError(
+                f"Could not convert node indices to integers: {source[1:]}, {target[1:]}"
+            )
 
         edge_key = (source, target)
 
@@ -121,8 +126,13 @@ def str_to_edge_dict(graph_string: str) -> dict:
         connection = edge_components[1]
         target = edge_components[2]
 
-        if source > target:
-            source, target = target, source
+        try:
+            if int(source[1:]) > int(target[1:]):
+                source, target = target, source
+        except ValueError:
+            raise ValueError(
+                f"Could not convert node indices to integers: {source[1:]}, {target[1:]}"
+            )
 
         edge_key = (source, target)
 

@@ -35,8 +35,6 @@ class CausalDiscoveryAlgorithm(ABC):
         pass
 
     def _set_auxiliary_results(self):
-        if self.est_graph == GeneralGraph([]):
-            raise RuntimeError("Estimated graph is empty.")
 
         self.est_edge_adj = get_edge_adjacency_matrix(graph=self.est_graph)
         self.est_graph_skeleton = get_graph_skeleton(graph=self.est_graph)
