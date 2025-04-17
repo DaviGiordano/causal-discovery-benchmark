@@ -6,6 +6,72 @@ from src.graph_aux import get_graph_skeleton
 from typing import Dict
 from statistics import mean
 from statistics import median
+from causallearn.graph.Graph import Graph
+from causallearn.graph.Endpoint import Endpoint
+
+
+class WeightedSHD:
+    """
+    Compute the Structural Hamming Distance (SHD) between two graphs. In simple terms, this is the number of edge
+    insertions, deletions or flips in order to transform one graph to another graph.
+    """
+
+    def __init__(self, truth: Graph, est: Graph):
+        """
+        Compute and store the Structural Hamming Distance (SHD) between two graphs.
+
+        Parameters
+        ----------
+        truth : Graph
+            Truth graph.
+        est :
+            Estimated graph.
+        """
+        distance_to_sum = {"inverted": 2, "other": 1}
+
+        truth_node_map = {
+            node.get_name(): node_id for node, node_id in truth.node_map.items()
+        }
+        est_node_map = {
+            node.get_name(): node_id for node, node_id in est.node_map.items()
+        }
+        assert set(truth_node_map.keys()) == set(
+            est_node_map.keys()
+        ), "The two graphs have different sets of node names."
+
+        self.__SHD: int = 0
+        for node_i_name, truth_node_i_id in truth_node_map.items():
+            for node_j_name, truth_node_j_id in truth_node_map.items():
+                if truth_node_j_id < truth_node_i_id:
+                    continue  # we allow `==' to care about the possibly self-loops.
+                est_node_i_id, est_node_j_id = (
+                    est_node_map[node_i_name],
+                    est_node_map[node_j_name],
+                )
+                truth_ij_edge_endpoints = (
+                    truth.graph[truth_node_i_id, truth_node_j_id],
+                    truth.graph[truth_node_j_id, truth_node_i_id],
+                )
+                est_ij_edge_endpoints = (
+                    est.graph[est_node_i_id, est_node_j_id],
+                    est.graph[est_node_j_id, est_node_i_id],
+                )
+
+                if truth_ij_edge_endpoints != est_ij_edge_endpoints:
+
+                    if (
+                        truth_ij_edge_endpoints == (Endpoint.TAIL, Endpoint.ARROW)
+                        and est_ij_edge_endpoints == (Endpoint.ARROW, Endpoint.TAIL)
+                    ) or (
+                        truth_ij_edge_endpoints == (Endpoint.ARROW, Endpoint.TAIL)
+                        and est_ij_edge_endpoints == (Endpoint.TAIL, Endpoint.ARROW)
+                    ):
+                        self.__SHD += distance_to_sum["inverted"]  # Inverted direction
+                    else:
+                        self.__SHD += distance_to_sum["other"]
+
+    def get_shd(self) -> int:
+        return self.__SHD
 
 
 class Metrics:
@@ -114,16 +180,35 @@ class Metrics:
         """Compute SHD distance between two graphs"""
         return SHD(self.true_graph, self.est_graph).get_shd()
 
-    def _compute_normalized_shd(self) -> float:
-        """Compute SHD distance between two graphs, normalized by number of possible edges"""
+    def _compute_weighted_shd(self) -> float:
+        """Compute Weighted SHD distance between two graphs. Weight of 2 for inverted directions"""
+        return WeightedSHD(self.true_graph, self.est_graph).get_shd()
+
+    def _normalize_by_strategy(self, value, normalize_by="possible_edges") -> float:
+        if normalize_by == "possible_edges":
+            num_nodes = len(self.true_graph.get_nodes())
+            num_possible_edges = num_nodes * (num_nodes - 1) / 2
+            return round(value / num_possible_edges, 4)
+        elif normalize_by == "true_support":
+            true_support = self.true_graph.get_num_edges()
+            return round(value / true_support, 4)
+        elif normalize_by == "est_support":
+            true_support = self.est_graph.get_num_edges()
+            return round(value / true_support, 4)
+        else:
+            raise NotImplementedError(
+                f"{normalize_by}: normalization method not implemented"
+            )
+
+    def _compute_normalized_shd(self, normalize_by="possible_edges") -> float:
+        """Compute SHD distance between two graphs, normalized"""
         shd = SHD(self.true_graph, self.est_graph).get_shd()
-        num_nodes = len(self.true_graph.get_nodes())
-        num_possible_edges = num_nodes * (num_nodes - 1)
+        return self._normalize_by_strategy(shd, normalize_by)
 
-        if num_possible_edges == 0:  # Handle edge case with 0 or 1 node
-            return 0.0
-
-        return round(shd / num_possible_edges, 4)
+    def _compute_normalized_weighted_shd(self, normalize_by="possible_edges") -> float:
+        """Compute weighted SHD distance between two graphs, normalized by number of possible edges"""
+        weighted_shd = WeightedSHD(self.true_graph, self.est_graph).get_shd()
+        return self._normalize_by_strategy(weighted_shd, normalize_by)
 
     def _compute_skeleton_shd(self) -> float:
         """Compute SHD distance between the skeleton of two graphs"""
@@ -265,13 +350,31 @@ class Metrics:
             "arrow_ce": self._compute_arrow_ce_metrics(),
             "shd": self._compute_shd(),
             "skeleton_shd": self._compute_skeleton_shd(),
+            "weighted_shd": self._compute_weighted_shd(),
+            "possible_edges_normalized_shd": self._compute_normalized_shd(
+                normalize_by="possible_edges"
+            ),
+            "possible_edges_normalized_weighted_shd": self._compute_normalized_weighted_shd(
+                normalize_by="possible_edges"
+            ),
+            "true_support_normalized_shd": self._compute_normalized_shd(
+                normalize_by="true_support"
+            ),
+            "true_support_normalized_weighted_shd": self._compute_normalized_weighted_shd(
+                normalize_by="true_support"
+            ),
+            "est_support_normalized_shd": self._compute_normalized_shd(
+                normalize_by="est_support"
+            ),
+            "est_support_normalized_weighted_shd": self._compute_normalized_weighted_shd(
+                normalize_by="est_support"
+            ),
             "training_time": self.training_time,
             "average_frequency": (
                 self._compute_average_frequency()
                 if (self.est_edges_dict and self.edge_probabilities)
                 else -1
             ),
-            "normalized_shd": self._compute_normalized_shd(),
             "median_frequency": (
                 self._compute_median_frequency()
                 if (self.est_edges_dict and self.edge_probabilities)
