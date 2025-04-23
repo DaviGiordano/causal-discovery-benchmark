@@ -180,10 +180,6 @@ class Metrics:
         """Compute SHD distance between two graphs"""
         return SHD(self.true_graph, self.est_graph).get_shd()
 
-    def _compute_weighted_shd(self) -> float:
-        """Compute Weighted SHD distance between two graphs. Weight of 2 for inverted directions"""
-        return WeightedSHD(self.true_graph, self.est_graph).get_shd()
-
     def _normalize_by_strategy(self, value, normalize_by="possible_edges") -> float:
         if normalize_by == "possible_edges":
             num_nodes = len(self.true_graph.get_nodes())
@@ -205,17 +201,20 @@ class Metrics:
         shd = SHD(self.true_graph, self.est_graph).get_shd()
         return self._normalize_by_strategy(shd, normalize_by)
 
-    def _compute_normalized_weighted_shd(self, normalize_by="possible_edges") -> float:
-        """Compute weighted SHD distance between two graphs, normalized by number of possible edges"""
-        weighted_shd = WeightedSHD(self.true_graph, self.est_graph).get_shd()
-        return self._normalize_by_strategy(weighted_shd, normalize_by)
-
     def _compute_skeleton_shd(self) -> float:
         """Compute SHD distance between the skeleton of two graphs"""
         return SHD(
             get_graph_skeleton(self.true_graph),
             get_graph_skeleton(self.est_graph),
         ).get_shd()
+
+    def _compute_normalized_skeleton_shd(self, normalize_by="possible_edges") -> float:
+        """Compute SHD distance between the skeleton of two graphs"""
+        shd = SHD(
+            get_graph_skeleton(self.true_graph),
+            get_graph_skeleton(self.est_graph),
+        ).get_shd()
+        return self._normalize_by_strategy(shd, normalize_by)
 
     def _compute_average_frequency(self) -> float:
         """Compute average frequency of the chosen edges, including absence of edge."""
@@ -350,23 +349,14 @@ class Metrics:
             "arrow_ce": self._compute_arrow_ce_metrics(),
             "shd": self._compute_shd(),
             "skeleton_shd": self._compute_skeleton_shd(),
-            "weighted_shd": self._compute_weighted_shd(),
+            "normalized_skeleton_shd": self._compute_normalized_skeleton_shd(),
             "possible_edges_normalized_shd": self._compute_normalized_shd(
-                normalize_by="possible_edges"
-            ),
-            "possible_edges_normalized_weighted_shd": self._compute_normalized_weighted_shd(
                 normalize_by="possible_edges"
             ),
             "true_support_normalized_shd": self._compute_normalized_shd(
                 normalize_by="true_support"
             ),
-            "true_support_normalized_weighted_shd": self._compute_normalized_weighted_shd(
-                normalize_by="true_support"
-            ),
             "est_support_normalized_shd": self._compute_normalized_shd(
-                normalize_by="est_support"
-            ),
-            "est_support_normalized_weighted_shd": self._compute_normalized_weighted_shd(
                 normalize_by="est_support"
             ),
             "training_time": self.training_time,
