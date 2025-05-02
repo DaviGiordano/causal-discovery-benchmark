@@ -5,7 +5,6 @@ import json
 import yaml
 
 
-# setup_logging()
 logger = logging.getLogger(__name__)
 
 
@@ -27,6 +26,7 @@ def load_csv(fpath: str, skip_header=False) -> np.ndarray:
 
 
 def load_txt(fpath: str) -> str:
+    """Load text file."""
     with open(fpath, "r") as f:
         data = f.read()
     logger.info(msg=f"Loaded {fpath} file")
