@@ -3,76 +3,10 @@ from typing import Dict
 
 from causallearn.graph.AdjacencyConfusion import AdjacencyConfusion
 from causallearn.graph.ArrowConfusion import ArrowConfusion
-from causallearn.graph.Endpoint import Endpoint
 from causallearn.graph.GeneralGraph import GeneralGraph
-from causallearn.graph.Graph import Graph
 from causallearn.graph.SHD import SHD
 
 from src.graph_aux import get_graph_skeleton
-
-
-class WeightedSHD:
-    """
-    Compute the Structural Hamming Distance (SHD) between two graphs. In simple terms, this is the number of edge
-    insertions, deletions or flips in order to transform one graph to another graph.
-    """
-
-    def __init__(self, truth: Graph, est: Graph):
-        """
-        Compute and store the Structural Hamming Distance (SHD) between two graphs.
-
-        Parameters
-        ----------
-        truth : Graph
-            Truth graph.
-        est :
-            Estimated graph.
-        """
-        distance_to_sum = {"inverted": 2, "other": 1}
-
-        truth_node_map = {
-            node.get_name(): node_id for node, node_id in truth.node_map.items()
-        }
-        est_node_map = {
-            node.get_name(): node_id for node, node_id in est.node_map.items()
-        }
-        assert set(truth_node_map.keys()) == set(
-            est_node_map.keys()
-        ), "The two graphs have different sets of node names."
-
-        self.__SHD: int = 0
-        for node_i_name, truth_node_i_id in truth_node_map.items():
-            for node_j_name, truth_node_j_id in truth_node_map.items():
-                if truth_node_j_id < truth_node_i_id:
-                    continue  # we allow `==' to care about the possibly self-loops.
-                est_node_i_id, est_node_j_id = (
-                    est_node_map[node_i_name],
-                    est_node_map[node_j_name],
-                )
-                truth_ij_edge_endpoints = (
-                    truth.graph[truth_node_i_id, truth_node_j_id],
-                    truth.graph[truth_node_j_id, truth_node_i_id],
-                )
-                est_ij_edge_endpoints = (
-                    est.graph[est_node_i_id, est_node_j_id],
-                    est.graph[est_node_j_id, est_node_i_id],
-                )
-
-                if truth_ij_edge_endpoints != est_ij_edge_endpoints:
-
-                    if (
-                        truth_ij_edge_endpoints == (Endpoint.TAIL, Endpoint.ARROW)
-                        and est_ij_edge_endpoints == (Endpoint.ARROW, Endpoint.TAIL)
-                    ) or (
-                        truth_ij_edge_endpoints == (Endpoint.ARROW, Endpoint.TAIL)
-                        and est_ij_edge_endpoints == (Endpoint.TAIL, Endpoint.ARROW)
-                    ):
-                        self.__SHD += distance_to_sum["inverted"]  # Inverted direction
-                    else:
-                        self.__SHD += distance_to_sum["other"]
-
-    def get_shd(self) -> int:
-        return self.__SHD
 
 
 class Metrics:
