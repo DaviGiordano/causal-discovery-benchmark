@@ -1,32 +1,14 @@
-import numpy as np
 import argparse
+import json
+import logging
+
+import numpy as np
 import yaml
 
 from src.logging_config import setup_logging
-import logging
-import json
 
 # setup_logging()
 logger = logging.getLogger(__name__)
-
-
-def parse_arguments() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        "--algorithm_tag",
-        type=str,
-        required=True,
-        help="Add tag for algorithm configuration from configs/algorithms.yaml",
-    )
-
-    parser.add_argument(
-        "--dataset_tag",
-        type=str,
-        required=True,
-        help="Add tag for dataset from configs/data.yaml",
-    )
-    return parser.parse_args()
 
 
 def load_yaml(fpath) -> dict:

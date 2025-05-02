@@ -1,17 +1,15 @@
 import json
-import jpype
-from src.graph_aux import dag_adj_to_graph
-from src.causal_discovery.CausalDiscoveryAlgorithm import CausalDiscoveryAlgorithm
-from src.pytetrad.TetradSearch import TetradSearch
-import pandas as pd
-import numpy as np
 import logging
 
-from src.parse_tetrad_string import (
-    str_to_edge_dict,
-    str_to_edge_probabilities,
-    str_to_general_graph,
-)
+import numpy as np
+import pandas as pd
+
+from src.causal_discovery.CausalDiscoveryAlgorithm import \
+    CausalDiscoveryAlgorithm
+from src.parse_tetrad_string import (str_to_edge_dict,
+                                     str_to_edge_probabilities,
+                                     str_to_general_graph)
+from src.pytetrad.TetradSearch import TetradSearch
 
 logger = logging.getLogger(__name__)
 

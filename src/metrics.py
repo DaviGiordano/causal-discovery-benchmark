@@ -1,13 +1,14 @@
-from causallearn.graph.GeneralGraph import GeneralGraph
-from causallearn.graph.ArrowConfusion import ArrowConfusion
-from causallearn.graph.AdjacencyConfusion import AdjacencyConfusion
-from causallearn.graph.SHD import SHD
-from src.graph_aux import get_graph_skeleton
+from statistics import mean, median
 from typing import Dict
-from statistics import mean
-from statistics import median
-from causallearn.graph.Graph import Graph
+
+from causallearn.graph.AdjacencyConfusion import AdjacencyConfusion
+from causallearn.graph.ArrowConfusion import ArrowConfusion
 from causallearn.graph.Endpoint import Endpoint
+from causallearn.graph.GeneralGraph import GeneralGraph
+from causallearn.graph.Graph import Graph
+from causallearn.graph.SHD import SHD
+
+from src.graph_aux import get_graph_skeleton
 
 
 class WeightedSHD:

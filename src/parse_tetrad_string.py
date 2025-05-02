@@ -1,9 +1,10 @@
+import re
+
 from causallearn.graph.Edge import Edge
 from causallearn.graph.Endpoint import Endpoint
 from causallearn.graph.GeneralGraph import GeneralGraph
 from causallearn.graph.GraphNode import GraphNode
 from causallearn.graph.Node import Node
-import re
 
 
 def str_to_edge_probabilities(graph_str: str) -> GeneralGraph:

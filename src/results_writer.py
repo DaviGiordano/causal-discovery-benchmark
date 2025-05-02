@@ -1,7 +1,8 @@
 import json
-import pathlib
 import logging
+import pathlib
 from typing import Any, Dict
+
 from flatten_dict import flatten
 
 logger = logging.getLogger(__name__)

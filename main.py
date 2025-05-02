@@ -1,42 +1,28 @@
+import logging
 import os
 import pathlib
 import time
-import logging
-from tqdm import tqdm
-from dotenv import load_dotenv
-from src.parse_tetrad_string import str_to_edge_dict
-from src.algorithm_choice import get_discovery_algorithm
-from causallearn.graph.GeneralGraph import GeneralGraph
-from src.metrics import Metrics
-from src.causal_discovery.causallearn_algorithms import (
-    PCAlgorithm,
-    FCIAlgorithm,
-    GESAlgorithm,
-    ExactSearchAlgorithm,
-    ICALiNGAMAlgorithm,
-    DirectLiNGAMAlgorithm,
-    GRaSPAlgorithm,
-    BossAlgorithm,
-)
+
 import matplotlib
+from causallearn.graph.GeneralGraph import GeneralGraph
+from dotenv import load_dotenv
+from tqdm import tqdm
+
+from src.algorithm_choice import get_discovery_algorithm
+from src.metrics import Metrics
 
 matplotlib.use("Agg")  # Non-interactive backend
+import json
 
-# from src.causal_discovery.castle_algorithms import (
-#     NOTEARSAlgorithm,
-#     DAGGNNAlgorithm,
-#     CORLAlgorithm,
-#     GraNDAGAlgorithm,
-# )
-from src.load_parse import load_csv, load_json, load_txt, load_yaml, parse_arguments
+import numpy as np
+from flatten_dict import flatten
+
 from src.graph_aux import dag_adj_to_graph
-from src.visualization import Plotter
-from src.results_writer import write_experiment_results
+from src.load_parse import load_csv, load_json, load_yaml
 from src.logging_config import setup_logging
 from src.mlflow_logger import MLflowLogger
-from flatten_dict import flatten
-import json
-import numpy as np
+from src.results_writer import write_experiment_results
+from src.visualization import Plotter
 
 ALL_ALGORITHMS_CONFIGS = "./configs/algorithms.yaml"
 ALL_DATA_CONFIGS = "./configs/dataset.yaml"

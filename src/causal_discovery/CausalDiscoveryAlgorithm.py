@@ -1,11 +1,12 @@
-from causallearn.graph.Edge import Edge
-from causallearn.graph.Endpoint import Endpoint
-import numpy as np
-from abc import ABC, abstractmethod
 import logging
+from abc import ABC, abstractmethod
 from typing import Dict
 
+import numpy as np
+from causallearn.graph.Edge import Edge
+from causallearn.graph.Endpoint import Endpoint
 from causallearn.graph.GeneralGraph import GeneralGraph
+
 from src.graph_aux import get_edge_adjacency_matrix, get_graph_skeleton
 from src.logging_config import setup_logging
 from src.metrics import Metrics

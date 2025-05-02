@@ -1,7 +1,6 @@
+import logging.config
 from pathlib import Path
 from typing import Union
-
-import logging.config
 
 LOGGING_CONFIG = {
     "version": 1,
