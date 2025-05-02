@@ -12,6 +12,8 @@ def dag_adj_to_graph(
     dag_adj: np.ndarray,
     adj_type: str = "upper_triangular",
 ) -> GeneralGraph:
+    """Converts an adjacency matrix to a causallearn.GeneralGraph"""
+
     nodes = list[Node]([GraphNode(f"X{i}") for i in range(1, dag_adj.shape[0] + 1)])
     graph = GeneralGraph(nodes)
 
@@ -92,7 +94,6 @@ def to_pydot_label_edges(
     labels: Optional[List[str]] = None,
     title: str = "",
     dpi: float = 200,
-    # Generic edge_labels dict: (node1_id, node2_id) -> str (the label)
     edge_labels: Optional[Dict[Tuple[int, int], str]] = None,
 ) -> pydot.Dot:
     """
@@ -112,7 +113,7 @@ def to_pydot_label_edges(
         The dots-per-inch setting for the figure
     edge_labels : dict, optional
         A mapping from (node1_id, node2_id) to a string label.
-        For instance, "3.5" or "2" or "80%"—whatever you want to show on that edge.
+        For instance, "3.5" or "2" or "80%"
 
     Returns
     -------
