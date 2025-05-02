@@ -29,6 +29,7 @@ class Metrics:
         self.edge_probabilities = edge_probabilities
 
     def _validate_graphs(self):
+        """Validates if the graphs have the same node names"""
         true_nodes = set(node.get_name() for node in self.true_graph.get_nodes())
         est_nodes = set(node.get_name() for node in self.est_graph.get_nodes())
         if true_nodes != est_nodes:
@@ -89,7 +90,7 @@ class Metrics:
         }
 
     def _compute_arrow_ce_metrics(self) -> Dict:
-        """Compute metrics for ce directed edge. (?)"""
+        """Compute metrics for ce directed edge."""
         arrow = ArrowConfusion(self.true_graph, self.est_graph)
 
         try:
@@ -326,5 +327,5 @@ class Metrics:
                 else -1
             ),
         }
-        """Return all metrics."""
+
         return result_metrics
