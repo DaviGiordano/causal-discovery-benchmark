@@ -14,10 +14,15 @@ from src.visualization import Plotter
 
 
 class CausalDiscoveryAlgorithm(ABC):
+    """
+    Abstracts a Causal Discovery algorithm.
+    This abstraction was more useful when multiple libraries was used.
+    Now, the code only supports algorithms from Tetrad.
+    """
+
     def __init__(self, config_params):
         self.config_params = config_params
 
-        # Not all graphs may have this. I'll leave unset
         self.est_adj: np.ndarray = np.ndarray([])
         self.est_edge_adj: np.ndarray = np.ndarray([])
 
@@ -36,7 +41,7 @@ class CausalDiscoveryAlgorithm(ABC):
         pass
 
     def _set_auxiliary_results(self):
-
+        """Optional auxiliary results, may be called after train."""
         self.est_edge_adj = get_edge_adjacency_matrix(graph=self.est_graph)
         self.est_graph_skeleton = get_graph_skeleton(graph=self.est_graph)
         self.is_trained = True
