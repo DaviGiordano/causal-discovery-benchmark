@@ -1,11 +1,9 @@
-import argparse
-import json
-import logging
-
+from src.logging_config import setup_logging
 import numpy as np
+import logging
+import json
 import yaml
 
-from src.logging_config import setup_logging
 
 # setup_logging()
 logger = logging.getLogger(__name__)

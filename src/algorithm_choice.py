@@ -1,9 +1,12 @@
-from src.causal_discovery.CausalDiscoveryAlgorithm import \
-    CausalDiscoveryAlgorithm
-from src.causal_discovery.tetrad_algorithms import (BOSSTetrad, DAGMATetrad,
-                                                    DirectLiNGAMTetrad,
-                                                    FGESTetrad, GRASPTetrad,
-                                                    PCTetrad)
+from src.causal_discovery.CausalDiscoveryAlgorithm import CausalDiscoveryAlgorithm
+from src.causal_discovery.tetrad_algorithms import (
+    BOSSTetrad,
+    DAGMATetrad,
+    DirectLiNGAMTetrad,
+    FGESTetrad,
+    GRASPTetrad,
+    PCTetrad,
+)
 
 
 def get_discovery_algorithm(**config_params) -> CausalDiscoveryAlgorithm:

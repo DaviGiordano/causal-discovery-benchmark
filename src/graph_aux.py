@@ -1,12 +1,11 @@
-from typing import Dict, List, Optional, Tuple
-
 import numpy as np
 import pydot
-from causallearn.graph.Edge import Edge
-from causallearn.graph.Endpoint import Endpoint
 from causallearn.graph.GeneralGraph import GeneralGraph
 from causallearn.graph.GraphNode import GraphNode
+from causallearn.graph.Endpoint import Endpoint
+from causallearn.graph.Edge import Edge
 from causallearn.graph.Node import Node
+from typing import Dict, List, Optional, Tuple
 
 
 def dag_adj_to_graph(

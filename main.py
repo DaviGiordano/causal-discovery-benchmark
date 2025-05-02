@@ -1,28 +1,27 @@
-import logging
-import os
-import pathlib
-import time
+from src.load_parse import load_csv, load_json, load_yaml
+from src.algorithm_choice import get_discovery_algorithm
+from src.results_writer import write_experiment_results
+from src.logging_config import setup_logging
+from src.mlflow_logger import MLflowLogger
+from src.graph_aux import dag_adj_to_graph
+from src.visualization import Plotter
+from src.metrics import Metrics
 
-import matplotlib
 from causallearn.graph.GeneralGraph import GeneralGraph
+from flatten_dict import flatten
 from dotenv import load_dotenv
 from tqdm import tqdm
 
-from src.algorithm_choice import get_discovery_algorithm
-from src.metrics import Metrics
+import numpy as np
+import matplotlib
+import logging
+import pathlib
+import json
+import time
+import os
+
 
 matplotlib.use("Agg")  # Non-interactive backend
-import json
-
-import numpy as np
-from flatten_dict import flatten
-
-from src.graph_aux import dag_adj_to_graph
-from src.load_parse import load_csv, load_json, load_yaml
-from src.logging_config import setup_logging
-from src.mlflow_logger import MLflowLogger
-from src.results_writer import write_experiment_results
-from src.visualization import Plotter
 
 ALL_ALGORITHMS_CONFIGS = "./configs/algorithms.yaml"
 ALL_DATA_CONFIGS = "./configs/dataset.yaml"

@@ -1,16 +1,14 @@
-from io import BytesIO
-from typing import Optional
-
-import matplotlib.pyplot as plt
-import pydot
-import seaborn as sns
 from causallearn.graph.GeneralGraph import GeneralGraph
 from causallearn.utils.GraphUtils import GraphUtils
-from matplotlib.axes import Axes
 from matplotlib.figure import Figure
+from matplotlib.axes import Axes
+from typing import Optional
+from io import BytesIO
 from PIL import Image
 
-from src.metrics import Metrics
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pydot
 
 
 class Plotter:
