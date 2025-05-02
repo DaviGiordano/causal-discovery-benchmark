@@ -50,6 +50,7 @@ def run_experiment(
         true_adj = load_csv(data_params["true_adj_fpath"])
         true_graph = dag_adj_to_graph(true_adj, "upper_triangular")
         true_edges_dict = load_json(data_params["true_edges_dict"])
+
         # Resample data if larger than 2000 samples
         if len(data) > 2000:
             logging.info(
@@ -58,6 +59,7 @@ def run_experiment(
             np.random.seed(42)
             sample_indices = np.random.choice(len(data), size=2000, replace=False)
             data = data[sample_indices]
+
         # Load selected model
         config_params = load_yaml(ALL_ALGORITHMS_CONFIGS)[algorithm_tag]
         model = get_discovery_algorithm(**config_params)
@@ -76,6 +78,7 @@ def run_experiment(
             true_edges_dict,
             model.edge_probabilities,
         )
+
         metrics_results = metrics.get_result_metrics()
 
         params_to_log = flatten(config_params, reducer="dot")
