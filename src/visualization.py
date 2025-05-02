@@ -208,45 +208,6 @@ class Plotter:
 
         return fig
 
-    def plot_labeled_graph(
-        self,
-        graph: GeneralGraph,
-        edge_labels: dict,
-        title: str = "Labeled Graph",
-        fpath: Optional[str] = None,
-    ) -> Figure:
-        """Plot a graph with edge labels.
-
-        Args:
-            graph: Graph to plot
-            edge_labels: Dictionary mapping (i,j) tuples to label strings
-            title: Title for the plot
-            fpath: Optional path to save the figure
-
-        Returns:
-            Matplotlib figure object
-        """
-        # Convert graph to pydot with labels
-        from src.graph_aux import to_pydot_label_edges
-
-        pyd = to_pydot_label_edges(G=graph, edge_labels=edge_labels, title=title)
-        graph_img = Image.open(BytesIO(pyd.create_png()))
-
-        # Create figure
-        fig = plt.figure(figsize=(8, 6))
-        ax = plt.gca()
-
-        # Plot graph
-        ax.imshow(graph_img)
-        ax.axis("off")
-        ax.set_title(title)
-
-        if fpath:
-            fig.savefig(fpath)
-            plt.close(fig)
-
-        return fig
-
     def plot_pydot(
         self,
         dotgraph: str,
