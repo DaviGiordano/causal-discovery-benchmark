@@ -6,6 +6,7 @@ from src.mlflow_logger import MLflowLogger
 from src.graph_aux import dag_adj_to_graph
 from src.visualization import Plotter
 from src.metrics import Metrics
+from src.plotting import plot_results
 
 from causallearn.graph.GeneralGraph import GeneralGraph
 from flatten_dict import flatten
@@ -25,44 +26,6 @@ matplotlib.use("Agg")  # Non-interactive backend
 
 ALL_ALGORITHMS_CONFIGS = "./configs/algorithms.yaml"
 ALL_DATA_CONFIGS = "./configs/dataset.yaml"
-
-
-def plot_results(
-    true_graph: GeneralGraph,
-    est_graph: GeneralGraph,
-    est_dotgraph: str,
-    metrics: Metrics,
-    output_path: pathlib.Path,
-):
-
-    # Generate and save plots
-    plotter = Plotter()
-    plotter.plot_confusion_comparison(
-        metrics_data=metrics.get_result_metrics(),
-        title=f"Confusion Matrices - {algorithm_tag} - {dataset_tag}",
-        fpath=f"{output_path}/confusion_matrices.png",
-    )
-    plotter.plot_graph(
-        title=f"True Graph - {dataset_tag}",
-        graph=true_graph,
-        fpath=f"{output_path}/true_graph.png",
-    )
-    plotter.plot_graph(
-        title=f"Estimated Graph - {algorithm_tag} - {dataset_tag}",
-        graph=est_graph,
-        fpath=f"{output_path}/est_graph.png",
-    )
-    plotter.plot_graph_comparison(
-        graph1=true_graph,
-        graph2=est_graph,
-        fpath=f"{output_path}/graph_comparison.png",
-        title=f"Graph Comparison - {algorithm_tag} - {dataset_tag}",
-    )
-    plotter.plot_pydot(
-        est_dotgraph,
-        title=f"Edge probabilities - {algorithm_tag} - {dataset_tag}",
-        fpath=f"{output_path}/edge_probabilities.png",
-    )
 
 
 def run_experiment(
@@ -125,6 +88,8 @@ def run_experiment(
             model.est_dotgraph,
             metrics,
             output_path,
+            algorithm_tag,
+            dataset_tag,
         )
 
         # Save edge probabilities to JSON
