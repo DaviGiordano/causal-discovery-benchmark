@@ -13,6 +13,8 @@ from src.parse_tetrad_string import (
 
 logger = logging.getLogger(__name__)
 
+# Functions and default configuration parameters for independence test methods in Tetrad.
+# Only used when a required parameter is not configured in configs/algorithm_params.yaml
 TEST_METHODS = {
     "fisherz": {
         "func_name": "use_fisher_z",
@@ -32,6 +34,8 @@ TEST_METHODS = {
     },
 }
 
+# Functions and default configuration parameters for scoring methods in Tetrad.
+# Only used when a required parameter is not configured in configs/algorithm_params.yaml
 SCORE_METHODS = {
     "conditional_gaussian_score": {
         "func_name": "use_conditional_gaussian_score",
