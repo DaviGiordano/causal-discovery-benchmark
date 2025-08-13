@@ -1,12 +1,5 @@
 # PC algorithms
 
-pc_tetrad_01:
-    algorithm_name: pc_tetrad
-    test_name: conditional_gaussian_test
-    test_params:
-        alpha: 0.01
-    bootstrap_strategy: bootstrap100
-
 pc_tetrad_05:
     algorithm_name: pc_tetrad
     test_name: conditional_gaussian_test
@@ -14,21 +7,7 @@ pc_tetrad_05:
         alpha: 0.05
     bootstrap_strategy: bootstrap100
 
-pc_tetrad_10:
-    algorithm_name: pc_tetrad
-    test_name: conditional_gaussian_test
-    test_params:
-        alpha: 0.10
-    bootstrap_strategy: bootstrap100
-
 # FGES algorithms (score-based)
-fges_tetrad_pd1:
-    algorithm_name: fges_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 1
-    bootstrap_strategy: bootstrap100
-
 fges_tetrad_pd2:
     algorithm_name: fges_tetrad
     score_name: conditional_gaussian_score
@@ -36,21 +15,7 @@ fges_tetrad_pd2:
         penalty_discount: 2
     bootstrap_strategy: bootstrap100
 
-fges_tetrad_pd4:
-    algorithm_name: fges_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 4
-    bootstrap_strategy: bootstrap100
-
 # BOSS algorithms (score-based)
-boss_tetrad_pd1:
-    algorithm_name: boss_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 1
-    bootstrap_strategy: bootstrap100
-
 boss_tetrad_pd2:
     algorithm_name: boss_tetrad
     score_name: conditional_gaussian_score
@@ -58,23 +23,7 @@ boss_tetrad_pd2:
         penalty_discount: 2
     bootstrap_strategy: bootstrap100
 
-boss_tetrad_pd4:
-    algorithm_name: boss_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 4
-    bootstrap_strategy: bootstrap100
-
 # GRASP configurations with alpha = 0.05
-grasp_tetrad_pd1:
-    algorithm_name: grasp_tetrad
-    test_name: conditional_gaussian_test
-    test_params:
-        alpha: 0.05
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 1
-    bootstrap_strategy: bootstrap100
 
 grasp_tetrad_pd2:
     algorithm_name: grasp_tetrad
@@ -86,24 +35,7 @@ grasp_tetrad_pd2:
         penalty_discount: 2
     bootstrap_strategy: bootstrap100
 
-grasp_tetrad_pd4:
-    algorithm_name: grasp_tetrad
-    test_name: conditional_gaussian_test
-    test_params:
-        alpha: 0.05
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 4
-    bootstrap_strategy: bootstrap100
-
 # Direct-LiNGAM algorithms with varying penalty discount
-directlingam_pd1:
-    algorithm_name: directlingam_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 1
-    bootstrap_strategy: bootstrap100
-
 directlingam_pd2:
     algorithm_name: directlingam_tetrad
     score_name: conditional_gaussian_score
@@ -111,31 +43,10 @@ directlingam_pd2:
         penalty_discount: 2
     bootstrap_strategy: bootstrap100
 
-directlingam_pd4:
-    algorithm_name: directlingam_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 4
-    bootstrap_strategy: bootstrap100
-
 # DAGMA algorithms (varying penalty_discount instead of lambda)
-dagma_tetrad_pd1:
-    algorithm_name: dagma_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 1
-    bootstrap_strategy: bootstrap100
-
 dagma_tetrad_pd2:
     algorithm_name: dagma_tetrad
     score_name: conditional_gaussian_score
     score_params:
         penalty_discount: 2
-    bootstrap_strategy: bootstrap100
-
-dagma_tetrad_pd4:
-    algorithm_name: dagma_tetrad
-    score_name: conditional_gaussian_score
-    score_params:
-        penalty_discount: 4
     bootstrap_strategy: bootstrap100
