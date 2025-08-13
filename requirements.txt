@@ -11,7 +11,7 @@ graphviz
 ipykernel
 causal-learn
 mlflow
-torch
+# torch
 gcastle
 python-dotenv
 flatten-dict
