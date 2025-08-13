@@ -1,0 +1,735 @@
+erdos_n10_d2_rootgmm_mechlinear_noisegaussian:
+    nodes: 10
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 2
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechlinear_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechlinear_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechlinear_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechlinear_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechpolynomial_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechpolynomial_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechpolynomial_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechpolynomial_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechsigmoid_add_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechsigmoid_add_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechsigmoid_add_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechsigmoid_add_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechnn_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechnn_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechnn_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechnn_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechbinary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - binary
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechbinary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - binary
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechbinary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - binary
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechbinary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - binary
+    mechanism_prob:
+    - 1.0
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechlinear-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechlinear-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechlinear-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechlinear-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - linear
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechpolynomial-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechpolynomial-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechpolynomial-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechpolynomial-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - polynomial
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechsigmoid_add-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechsigmoid_add-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechsigmoid_add-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechsigmoid_add-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - sigmoid_add
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechnn-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootgmm_mechnn-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - gmm
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechnn-binary_noisegaussian:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: gaussian
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
+erdos_n100_d5_rootbernoulli_mechnn-binary_noiseuniform:
+    nodes: 100
+    npoints: 10000
+    parents_max: -1
+    expected_degree: 5
+    dag_type: erdos
+    noise_kind: uniform
+    noise_coeff: 0.4
+    mechanism_pool:
+    - nn
+    - binary
+    mechanism_prob:
+    - 0.5
+    - 0.5
+    root_pool:
+    - bernoulli
+    root_prob:
+    - 1.0
+    force_binary_root: true
+    binary_root_p: 0.5
+    random_state: 42
