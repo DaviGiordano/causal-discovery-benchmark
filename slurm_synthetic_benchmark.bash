@@ -1,3 +1,4 @@
+#!/bin/bash
 #SBATCH --job-name=causal_discovery_benchmark
 #SBATCH --output=slurm_logs/job_%A_%a.out
 #SBATCH --error=slurm_logs/job_%A_%a.err
