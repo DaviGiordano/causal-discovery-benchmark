@@ -1,15 +1,16 @@
-import pandas as pd
-import numpy as np
-import logging
 import json
+import logging
+
+import numpy as np
+import pandas as pd
 
 from src.causal_discovery.CausalDiscoveryAlgorithm import CausalDiscoveryAlgorithm
-from src.pytetrad.TetradSearch import TetradSearch
 from src.parse_tetrad_string import (
     str_to_edge_dict,
     str_to_edge_probabilities,
     str_to_general_graph,
 )
+from src.py_tetrad.pytetrad.tools.TetradSearch import TetradSearch
 
 logger = logging.getLogger(__name__)
 
@@ -114,8 +115,8 @@ class TetradAlgorithm(CausalDiscoveryAlgorithm):
             number_resampling = 10
             percent_resample_size = 100
             with_replacement = True
-            add_original = True
-            resampling_ensemble = 1
+            add_original = False
+            resampling_ensemble = 3
             seed = 42
         elif bootstrap_strategy == "jackknife90":
             number_resampling = 10
@@ -156,7 +157,7 @@ class TetradAlgorithm(CausalDiscoveryAlgorithm):
     def train(self, data: np.ndarray, node_names: list = []) -> None:
         """Train the algorithm on the provided data."""
         if not node_names:
-            node_names = [f"X{i+1}" for i in range(data.shape[1])]
+            node_names = [f"X{i}" for i in range(data.shape[1])]
 
         df = pd.DataFrame(data, columns=node_names)
 

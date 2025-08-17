@@ -7,7 +7,7 @@ from causallearn.graph.GraphNode import GraphNode
 from causallearn.graph.Node import Node
 
 
-def str_to_edge_probabilities(graph_str: str) -> GeneralGraph:
+def str_to_edge_probabilities(graph_str: str) -> dict:
     """
     Parse a tetrad graph string into a dictionary structure with edge probabilities.
 
@@ -47,8 +47,19 @@ def str_to_edge_probabilities(graph_str: str) -> GeneralGraph:
 
     edge_lines = edges_section.split("\n")
     for line in edge_lines:
+        line = line.strip()
+        if not line:  # Skip empty lines
+            continue
+
+        # Check if line contains edge information
+        if ". " not in line:
+            continue
+
         edge_info = line.split(". ", 1)[1]
         edge_components = edge_info.split(" ", 3)
+        if len(edge_components) < 3:
+            continue
+
         source = edge_components[0]
         target = edge_components[2]
 
@@ -121,8 +132,19 @@ def str_to_edge_dict(graph_string: str) -> dict:
 
     edge_lines = edges_section.split("\n")
     for line in edge_lines:
+        line = line.strip()
+        if not line:  # Skip empty lines
+            continue
+
+        # Check if line contains edge information
+        if " [" not in line:
+            continue
+
         edge_info = line.split(" [", 1)[0][3:].strip()
         edge_components = edge_info.split(" ", 3)
+        if len(edge_components) < 3:
+            continue
+
         source = edge_components[0]
         connection = edge_components[1]
         target = edge_components[2]
@@ -176,7 +198,8 @@ def str_to_general_graph(graph_str: str) -> GeneralGraph:
         elif s == "-":
             return Endpoint.TAIL
         else:
-            print(f"Invalid endpoint type: {s}"), NotImplementedError
+            print(f"Invalid endpoint type: {s}")
+            raise NotImplementedError(f"Invalid endpoint type: {s}")
 
     def _mod_endpoint(edge: Edge, z: Node, end: Endpoint):
         if edge.get_node1() == z:

@@ -16,3 +16,4 @@ gcastle
 python-dotenv
 flatten-dict
 dagshub
+git+https://github.com/cmu-phil/py-tetrad

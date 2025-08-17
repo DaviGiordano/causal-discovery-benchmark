@@ -1,0 +1,598 @@
+Loading causal discovery performance data...
+Loaded data with 60 rows and 25 columns
+Preprocessing data...
+Found 9 complete datasets with all 6 algorithms
+Algorithms: boss_tetrad_pd2, dagma_tetrad_pd2, directlingam_pd2, fges_tetrad_pd2, grasp_tetrad_pd2, pc_tetrad_05
+Running statistical analysis...
+
+Analyzing Structural Hamming Distance...
+
+Analyzing Skeleton Hamming Distance...
+
+Analyzing Normalized Skeleton SHD...
+
+Analyzing Skeleton F1 Score...
+
+Analyzing Directed F1 Score...
+
+Analyzing Skeleton Precision...
+
+Analyzing Skeleton Recall...
+
+Analyzing Brier Score...
+
+Analyzing Expected Calibration Error...
+
+Analyzing Training Time...
+================================================================================
+CAUSAL DISCOVERY ALGORITHM PERFORMANCE ANALYSIS
+================================================================================
+Total datasets analyzed: 9
+Causal discovery algorithms: boss_tetrad_pd2, dagma_tetrad_pd2, directlingam_pd2, fges_tetrad_pd2, grasp_tetrad_pd2, pc_tetrad_05
+Metrics analyzed: 10
+
+------------------------------------------------------------
+ANALYSIS: Structural Hamming Distance
+(Lower is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean     Median   Std Dev  Min      Max      
+----------------------------------------------------------------------
+* grasp_tetrad_pd2  9      13.4444  15.0000  4.8505   7.0000   21.0000  
+  pc_tetrad_05      9      13.5556  14.0000  2.4552   9.0000   16.0000  
+  boss_tetrad_pd2   9      14.2222  15.0000  2.6822   9.0000   18.0000  
+  fges_tetrad_pd2   9      15.2222  15.0000  1.9221   13.0000  18.0000  
+  dagma_tetrad_pd2  9      17.0000  19.0000  3.2787   11.0000  20.0000  
+  directlingam_pd2  9      17.2222  17.0000  3.8658   13.0000  26.0000  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 20.3492
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.001074
+Effect size (Kendall's W): 0.452205
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ pc_tetrad_05: 1.889
+    grasp_tetrad_pd2: 2.667
+    boss_tetrad_pd2: 3.111
+    fges_tetrad_pd2: 3.389
+    directlingam_pd2: 4.722
+    dagma_tetrad_pd2: 5.222
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ dagma_tetrad_pd2 vs pc_tetrad_05: ranks 5.222 vs 1.889 (diff: 3.333)
+    ✓ directlingam_pd2 vs pc_tetrad_05: ranks 4.722 vs 1.889 (diff: 2.833)
+  Non-significant differences:
+      boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 3.111 vs 5.222 (diff: 2.111)
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 3.111 vs 4.722 (diff: 1.611)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 3.111 vs 3.389 (diff: 0.278)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.111 vs 2.667 (diff: 0.444)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 3.111 vs 1.889 (diff: 1.222)
+      dagma_tetrad_pd2 vs directlingam_pd2: ranks 5.222 vs 4.722 (diff: 0.500)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 5.222 vs 3.389 (diff: 1.833)
+      dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 5.222 vs 2.667 (diff: 2.556)
+      directlingam_pd2 vs fges_tetrad_pd2: ranks 4.722 vs 3.389 (diff: 1.333)
+      directlingam_pd2 vs grasp_tetrad_pd2: ranks 4.722 vs 2.667 (diff: 2.056)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.389 vs 2.667 (diff: 0.722)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.389 vs 1.889 (diff: 1.500)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 2.667 vs 1.889 (diff: 0.778)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.001074)
+✓ Best performing algorithm: pc_tetrad_05
+✓ 2/15 pairwise comparisons are significant after correction
+
+------------------------------------------------------------
+ANALYSIS: Skeleton Hamming Distance
+(Lower is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean     Median   Std Dev  Min     Max      
+---------------------------------------------------------------------
+* dagma_tetrad_pd2  9      9.4444   9.0000   2.7437   6.0000  14.0000  
+  pc_tetrad_05      9      9.4444   10.0000  2.6510   5.0000  13.0000  
+  grasp_tetrad_pd2  9      9.6667   10.0000  3.2404   5.0000  15.0000  
+  boss_tetrad_pd2   9      9.7778   10.0000  2.5874   6.0000  13.0000  
+  fges_tetrad_pd2   9      10.0000  10.0000  2.3452   6.0000  13.0000  
+  directlingam_pd2  9      11.8889  12.0000  3.3706   8.0000  18.0000  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 10.4603
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.063195
+Effect size (Kendall's W): 0.232451
+Significant: No
+
+Average Ranks (lower rank = better performance):
+  ★ pc_tetrad_05: 2.833
+    dagma_tetrad_pd2: 3.056
+    grasp_tetrad_pd2: 3.111
+    boss_tetrad_pd2: 3.167
+    fges_tetrad_pd2: 3.556
+    directlingam_pd2: 5.278
+
+4. INTERPRETATION
+------------------------------
+⚠ No significant differences detected (p = 0.063195)
+⚠ All algorithms perform similarly for this metric
+
+------------------------------------------------------------
+ANALYSIS: Normalized Skeleton SHD
+(Lower is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* dagma_tetrad_pd2  9      0.2099  0.2000  0.0610   0.1333  0.3111  
+  pc_tetrad_05      9      0.2099  0.2222  0.0589   0.1111  0.2889  
+  grasp_tetrad_pd2  9      0.2148  0.2222  0.0720   0.1111  0.3333  
+  boss_tetrad_pd2   9      0.2173  0.2222  0.0575   0.1333  0.2889  
+  fges_tetrad_pd2   9      0.2222  0.2222  0.0521   0.1333  0.2889  
+  directlingam_pd2  9      0.2642  0.2667  0.0749   0.1778  0.4000  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 10.4603
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.063195
+Effect size (Kendall's W): 0.232451
+Significant: No
+
+Average Ranks (lower rank = better performance):
+  ★ pc_tetrad_05: 2.833
+    dagma_tetrad_pd2: 3.056
+    grasp_tetrad_pd2: 3.111
+    boss_tetrad_pd2: 3.167
+    fges_tetrad_pd2: 3.556
+    directlingam_pd2: 5.278
+
+4. INTERPRETATION
+------------------------------
+⚠ No significant differences detected (p = 0.063195)
+⚠ All algorithms perform similarly for this metric
+
+------------------------------------------------------------
+ANALYSIS: Skeleton F1 Score
+(Higher is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* boss_tetrad_pd2   9      0.6756  0.6700  0.0788   0.5800  0.8000  
+  grasp_tetrad_pd2  9      0.6744  0.6400  0.0914   0.5600  0.8300  
+  dagma_tetrad_pd2  9      0.6733  0.6600  0.1043   0.4600  0.7900  
+  fges_tetrad_pd2   9      0.6667  0.6600  0.0789   0.5700  0.8000  
+  directlingam_pd2  9      0.6578  0.6700  0.0670   0.5700  0.7500  
+  pc_tetrad_05      9      0.6400  0.6400  0.1086   0.5000  0.8200  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 2.8254
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.726883
+Effect size (Kendall's W): 0.062787
+Significant: No
+
+Average Ranks (lower rank = better performance):
+  ★ boss_tetrad_pd2: 3.056
+    grasp_tetrad_pd2: 3.056
+    dagma_tetrad_pd2: 3.333
+    fges_tetrad_pd2: 3.444
+    directlingam_pd2: 3.889
+    pc_tetrad_05: 4.222
+
+4. INTERPRETATION
+------------------------------
+⚠ No significant differences detected (p = 0.726883)
+⚠ All algorithms perform similarly for this metric
+
+------------------------------------------------------------
+ANALYSIS: Directed F1 Score
+(Higher is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* grasp_tetrad_pd2  9      0.4567  0.4000  0.2069   0.2500  0.7700  
+  boss_tetrad_pd2   9      0.4200  0.4400  0.1213   0.2800  0.6400  
+  fges_tetrad_pd2   9      0.3522  0.3300  0.0860   0.2600  0.5200  
+  pc_tetrad_05      9      0.3489  0.3600  0.1278   0.1200  0.5600  
+  directlingam_pd2  9      0.3444  0.3500  0.0791   0.1900  0.4400  
+  dagma_tetrad_pd2  9      0.1889  0.1200  0.1878   0.0000  0.5700  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 13.6825
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.017757
+Effect size (Kendall's W): 0.304056
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ grasp_tetrad_pd2: 2.556
+    boss_tetrad_pd2: 2.889
+    pc_tetrad_05: 3.056
+    directlingam_pd2: 3.333
+    fges_tetrad_pd2: 3.722
+    dagma_tetrad_pd2: 5.444
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 5.444 vs 2.556 (diff: 2.889)
+  Non-significant differences:
+      boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 2.889 vs 5.444 (diff: 2.556)
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 2.889 vs 3.333 (diff: 0.444)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 2.889 vs 3.722 (diff: 0.833)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 2.889 vs 2.556 (diff: 0.333)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 2.889 vs 3.056 (diff: 0.167)
+      dagma_tetrad_pd2 vs directlingam_pd2: ranks 5.444 vs 3.333 (diff: 2.111)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 5.444 vs 3.722 (diff: 1.722)
+      dagma_tetrad_pd2 vs pc_tetrad_05: ranks 5.444 vs 3.056 (diff: 2.389)
+      directlingam_pd2 vs fges_tetrad_pd2: ranks 3.333 vs 3.722 (diff: 0.389)
+      directlingam_pd2 vs grasp_tetrad_pd2: ranks 3.333 vs 2.556 (diff: 0.778)
+      directlingam_pd2 vs pc_tetrad_05: ranks 3.333 vs 3.056 (diff: 0.278)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.722 vs 2.556 (diff: 1.167)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.722 vs 3.056 (diff: 0.667)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 2.556 vs 3.056 (diff: 0.500)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.017757)
+✓ Best performing algorithm: grasp_tetrad_pd2
+✓ 1/15 pairwise comparisons are significant after correction
+
+------------------------------------------------------------
+ANALYSIS: Skeleton Precision
+(Higher is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* pc_tetrad_05      9      0.6922  0.6400  0.1187   0.5300  0.8500  
+  grasp_tetrad_pd2  9      0.6589  0.6400  0.1133   0.4800  0.8000  
+  dagma_tetrad_pd2  9      0.6544  0.6900  0.1001   0.5000  0.7900  
+  boss_tetrad_pd2   9      0.6411  0.6400  0.0940   0.5300  0.7700  
+  fges_tetrad_pd2   9      0.6311  0.6000  0.0815   0.5300  0.7500  
+  directlingam_pd2  9      0.5689  0.5600  0.0918   0.4300  0.6900  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 16.8095
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.004876
+Effect size (Kendall's W): 0.373545
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ pc_tetrad_05: 2.222
+    grasp_tetrad_pd2: 3.056
+    dagma_tetrad_pd2: 3.111
+    boss_tetrad_pd2: 3.278
+    fges_tetrad_pd2: 3.722
+    directlingam_pd2: 5.611
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ directlingam_pd2 vs pc_tetrad_05: ranks 5.611 vs 2.222 (diff: 3.389)
+  Non-significant differences:
+      boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 3.278 vs 3.111 (diff: 0.167)
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 3.278 vs 5.611 (diff: 2.333)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 3.278 vs 3.722 (diff: 0.444)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.278 vs 3.056 (diff: 0.222)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 3.278 vs 2.222 (diff: 1.056)
+      dagma_tetrad_pd2 vs directlingam_pd2: ranks 3.111 vs 5.611 (diff: 2.500)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 3.111 vs 3.722 (diff: 0.611)
+      dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.111 vs 3.056 (diff: 0.056)
+      dagma_tetrad_pd2 vs pc_tetrad_05: ranks 3.111 vs 2.222 (diff: 0.889)
+      directlingam_pd2 vs fges_tetrad_pd2: ranks 5.611 vs 3.722 (diff: 1.889)
+      directlingam_pd2 vs grasp_tetrad_pd2: ranks 5.611 vs 3.056 (diff: 2.556)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.722 vs 3.056 (diff: 0.667)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.722 vs 2.222 (diff: 1.500)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 3.056 vs 2.222 (diff: 0.833)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.004876)
+✓ Best performing algorithm: pc_tetrad_05
+✓ 1/15 pairwise comparisons are significant after correction
+
+------------------------------------------------------------
+ANALYSIS: Skeleton Recall
+(Higher is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* directlingam_pd2  9      0.7944  0.7900  0.0695   0.7100  0.8600  
+  boss_tetrad_pd2   9      0.7222  0.7100  0.1065   0.5700  0.8600  
+  fges_tetrad_pd2   9      0.7222  0.6400  0.1380   0.5700  0.9300  
+  grasp_tetrad_pd2  9      0.7056  0.7100  0.1173   0.5000  0.8600  
+  dagma_tetrad_pd2  9      0.6978  0.7100  0.1236   0.4300  0.8600  
+  pc_tetrad_05      9      0.6100  0.6400  0.1285   0.3600  0.7900  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 13.3651
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.020188
+Effect size (Kendall's W): 0.297002
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ directlingam_pd2: 1.667
+    dagma_tetrad_pd2: 3.500
+    boss_tetrad_pd2: 3.556
+    fges_tetrad_pd2: 3.556
+    grasp_tetrad_pd2: 3.944
+    pc_tetrad_05: 4.778
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ directlingam_pd2 vs pc_tetrad_05: ranks 1.667 vs 4.778 (diff: 3.111)
+  Non-significant differences:
+      boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 3.556 vs 3.500 (diff: 0.056)
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 3.556 vs 1.667 (diff: 1.889)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 3.556 vs 3.556 (diff: 0.000)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.556 vs 3.944 (diff: 0.389)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 3.556 vs 4.778 (diff: 1.222)
+      dagma_tetrad_pd2 vs directlingam_pd2: ranks 3.500 vs 1.667 (diff: 1.833)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 3.500 vs 3.556 (diff: 0.056)
+      dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.500 vs 3.944 (diff: 0.444)
+      dagma_tetrad_pd2 vs pc_tetrad_05: ranks 3.500 vs 4.778 (diff: 1.278)
+      directlingam_pd2 vs fges_tetrad_pd2: ranks 1.667 vs 3.556 (diff: 1.889)
+      directlingam_pd2 vs grasp_tetrad_pd2: ranks 1.667 vs 3.944 (diff: 2.278)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.556 vs 3.944 (diff: 0.389)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.556 vs 4.778 (diff: 1.222)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 3.944 vs 4.778 (diff: 0.833)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.020188)
+✓ Best performing algorithm: directlingam_pd2
+✓ 1/15 pairwise comparisons are significant after correction
+
+------------------------------------------------------------
+ANALYSIS: Brier Score
+(Lower is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* grasp_tetrad_pd2  9      0.1105  0.1149  0.0303   0.0596  0.1458  
+  boss_tetrad_pd2   9      0.1209  0.1327  0.0236   0.0893  0.1464  
+  fges_tetrad_pd2   9      0.1282  0.1340  0.0184   0.0916  0.1501  
+  pc_tetrad_05      9      0.1283  0.1358  0.0215   0.0917  0.1539  
+  directlingam_pd2  9      0.1454  0.1466  0.0268   0.1034  0.1876  
+  dagma_tetrad_pd2  9      0.1601  0.1774  0.0382   0.1032  0.1980  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 22.2698
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.000465
+Effect size (Kendall's W): 0.494885
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ grasp_tetrad_pd2: 1.444
+    boss_tetrad_pd2: 2.889
+    fges_tetrad_pd2: 3.444
+    pc_tetrad_05: 3.556
+    directlingam_pd2: 4.333
+    dagma_tetrad_pd2: 5.333
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 5.333 vs 1.444 (diff: 3.889)
+    ✓ directlingam_pd2 vs grasp_tetrad_pd2: ranks 4.333 vs 1.444 (diff: 2.889)
+  Non-significant differences:
+      boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 2.889 vs 5.333 (diff: 2.444)
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 2.889 vs 4.333 (diff: 1.444)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 2.889 vs 3.444 (diff: 0.556)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 2.889 vs 1.444 (diff: 1.444)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 2.889 vs 3.556 (diff: 0.667)
+      dagma_tetrad_pd2 vs directlingam_pd2: ranks 5.333 vs 4.333 (diff: 1.000)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 5.333 vs 3.444 (diff: 1.889)
+      dagma_tetrad_pd2 vs pc_tetrad_05: ranks 5.333 vs 3.556 (diff: 1.778)
+      directlingam_pd2 vs fges_tetrad_pd2: ranks 4.333 vs 3.444 (diff: 0.889)
+      directlingam_pd2 vs pc_tetrad_05: ranks 4.333 vs 3.556 (diff: 0.778)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.444 vs 1.444 (diff: 2.000)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.444 vs 3.556 (diff: 0.111)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 1.444 vs 3.556 (diff: 2.111)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.000465)
+✓ Best performing algorithm: grasp_tetrad_pd2
+✓ 2/15 pairwise comparisons are significant after correction
+
+------------------------------------------------------------
+ANALYSIS: Expected Calibration Error
+(Lower is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean    Median  Std Dev  Min     Max     
+------------------------------------------------------------------
+* grasp_tetrad_pd2  9      0.2007  0.2111  0.0463   0.1111  0.2533  
+  boss_tetrad_pd2   9      0.2230  0.2378  0.0526   0.1622  0.3000  
+  pc_tetrad_05      9      0.2461  0.2600  0.0344   0.1667  0.2800  
+  fges_tetrad_pd2   9      0.2477  0.2489  0.0322   0.1978  0.3022  
+  directlingam_pd2  9      0.2884  0.3178  0.0675   0.1644  0.3733  
+  dagma_tetrad_pd2  9      0.3173  0.3489  0.0851   0.1844  0.3978  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 24.1746
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.000201
+Effect size (Kendall's W): 0.537213
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ grasp_tetrad_pd2: 1.333
+    boss_tetrad_pd2: 2.889
+    pc_tetrad_05: 3.444
+    fges_tetrad_pd2: 3.667
+    directlingam_pd2: 4.222
+    dagma_tetrad_pd2: 5.444
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 5.444 vs 1.333 (diff: 4.111)
+    ✓ directlingam_pd2 vs grasp_tetrad_pd2: ranks 4.222 vs 1.333 (diff: 2.889)
+  Non-significant differences:
+      boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 2.889 vs 5.444 (diff: 2.556)
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 2.889 vs 4.222 (diff: 1.333)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 2.889 vs 3.667 (diff: 0.778)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 2.889 vs 1.333 (diff: 1.556)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 2.889 vs 3.444 (diff: 0.556)
+      dagma_tetrad_pd2 vs directlingam_pd2: ranks 5.444 vs 4.222 (diff: 1.222)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 5.444 vs 3.667 (diff: 1.778)
+      dagma_tetrad_pd2 vs pc_tetrad_05: ranks 5.444 vs 3.444 (diff: 2.000)
+      directlingam_pd2 vs fges_tetrad_pd2: ranks 4.222 vs 3.667 (diff: 0.556)
+      directlingam_pd2 vs pc_tetrad_05: ranks 4.222 vs 3.444 (diff: 0.778)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.667 vs 1.333 (diff: 2.333)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.667 vs 3.444 (diff: 0.222)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 1.333 vs 3.444 (diff: 2.111)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.000201)
+✓ Best performing algorithm: grasp_tetrad_pd2
+✓ 2/15 pairwise comparisons are significant after correction
+
+------------------------------------------------------------
+ANALYSIS: Training Time
+(Lower is better)
+------------------------------------------------------------
+
+1. DESCRIPTIVE STATISTICS
+------------------------------
+Algorithm         Count  Mean     Median   Std Dev  Min      Max      
+----------------------------------------------------------------------
+* directlingam_pd2  9      3.0141   3.1071   0.4175   2.2123   3.5486   
+  pc_tetrad_05      9      5.8276   5.7348   1.0959   4.2872   7.6592   
+  boss_tetrad_pd2   9      5.8966   5.3922   1.2016   4.6825   8.4909   
+  fges_tetrad_pd2   9      7.1622   6.4555   2.2718   4.0440   10.6794  
+  grasp_tetrad_pd2  9      7.4812   6.7112   2.8945   4.6986   13.1758  
+  dagma_tetrad_pd2  9      25.5464  25.8748  6.1982   13.9527  35.4279  
+
+2. FRIEDMAN TEST RESULTS
+------------------------------
+Friedman Statistic: 34.3333
+Degrees of Freedom: 5
+Critical Value (α=0.05): 11.0705
+P-value: 0.000002
+Effect size (Kendall's W): 0.762963
+Significant: Yes ✓
+
+Average Ranks (lower rank = better performance):
+  ★ directlingam_pd2: 1.000
+    boss_tetrad_pd2: 3.000
+    pc_tetrad_05: 3.111
+    fges_tetrad_pd2: 3.778
+    grasp_tetrad_pd2: 4.111
+    dagma_tetrad_pd2: 6.000
+
+3. POST-HOC ANALYSIS (Dunn's Test)
+------------------------------
+Critical Difference: 2.5886
+Pairwise Comparisons:
+  Significant differences:
+    ✓ boss_tetrad_pd2 vs dagma_tetrad_pd2: ranks 3.000 vs 6.000 (diff: 3.000)
+    ✓ dagma_tetrad_pd2 vs directlingam_pd2: ranks 6.000 vs 1.000 (diff: 5.000)
+    ✓ dagma_tetrad_pd2 vs pc_tetrad_05: ranks 6.000 vs 3.111 (diff: 2.889)
+    ✓ directlingam_pd2 vs fges_tetrad_pd2: ranks 1.000 vs 3.778 (diff: 2.778)
+    ✓ directlingam_pd2 vs grasp_tetrad_pd2: ranks 1.000 vs 4.111 (diff: 3.111)
+  Non-significant differences:
+      boss_tetrad_pd2 vs directlingam_pd2: ranks 3.000 vs 1.000 (diff: 2.000)
+      boss_tetrad_pd2 vs fges_tetrad_pd2: ranks 3.000 vs 3.778 (diff: 0.778)
+      boss_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.000 vs 4.111 (diff: 1.111)
+      boss_tetrad_pd2 vs pc_tetrad_05: ranks 3.000 vs 3.111 (diff: 0.111)
+      dagma_tetrad_pd2 vs fges_tetrad_pd2: ranks 6.000 vs 3.778 (diff: 2.222)
+      dagma_tetrad_pd2 vs grasp_tetrad_pd2: ranks 6.000 vs 4.111 (diff: 1.889)
+      directlingam_pd2 vs pc_tetrad_05: ranks 1.000 vs 3.111 (diff: 2.111)
+      fges_tetrad_pd2 vs grasp_tetrad_pd2: ranks 3.778 vs 4.111 (diff: 0.333)
+      fges_tetrad_pd2 vs pc_tetrad_05: ranks 3.778 vs 3.111 (diff: 0.667)
+      grasp_tetrad_pd2 vs pc_tetrad_05: ranks 4.111 vs 3.111 (diff: 1.000)
+
+4. INTERPRETATION
+------------------------------
+✓ Significant differences detected (p = 0.000002)
+✓ Best performing algorithm: directlingam_pd2
+✓ 5/15 pairwise comparisons are significant after correction
+
+================================================================================
+CROSS-METRIC SUMMARY
+================================================================================
+Metric                       Best Algorithm    Friedman Sig  P-value  Pairwise Sig  
+------------------------------------------------------------------------------------
+Structural Hamming Distance  pc_tetrad_05      Yes ✓         0.0011   2/15          
+Skeleton Hamming Distance    pc_tetrad_05      No            0.0632   N/A           
+Normalized Skeleton SHD      pc_tetrad_05      No            0.0632   N/A           
+Skeleton F1 Score            boss_tetrad_pd2   No            0.7269   N/A           
+Directed F1 Score            grasp_tetrad_pd2  Yes ✓         0.0178   1/15          
+Skeleton Precision           pc_tetrad_05      Yes ✓         0.0049   1/15          
+Skeleton Recall              directlingam_pd2  Yes ✓         0.0202   1/15          
+Brier Score                  grasp_tetrad_pd2  Yes ✓         0.0005   2/15          
+Expected Calibration Error   grasp_tetrad_pd2  Yes ✓         0.0002   2/15          
+Training Time                directlingam_pd2  Yes ✓         0.0000   5/15          
+
+OVERALL CONCLUSIONS:
+--------------------
+• 7/10 metrics show significant differences
+• Algorithm performance summary:
+  - grasp_tetrad_pd2: best in 3 metric(s)
+  - pc_tetrad_05: best in 2 metric(s)
+  - directlingam_pd2: best in 2 metric(s)
+

@@ -5,6 +5,7 @@ pc_tetrad_05:
     test_name: conditional_gaussian_test
     test_params:
         alpha: 0.05
+        discretize: true
     bootstrap_strategy: bootstrap100
 
 # FGES algorithms (score-based)
@@ -13,6 +14,7 @@ fges_tetrad_pd2:
     score_name: conditional_gaussian_score
     score_params:
         penalty_discount: 2
+        discretize: true
     bootstrap_strategy: bootstrap100
 
 # BOSS algorithms (score-based)
@@ -21,6 +23,7 @@ boss_tetrad_pd2:
     score_name: conditional_gaussian_score
     score_params:
         penalty_discount: 2
+        discretize: true
     bootstrap_strategy: bootstrap100
 
 # GRASP configurations with alpha = 0.05
@@ -33,6 +36,7 @@ grasp_tetrad_pd2:
     score_name: conditional_gaussian_score
     score_params:
         penalty_discount: 2
+        discretize: true
     bootstrap_strategy: bootstrap100
 
 # Direct-LiNGAM algorithms with varying penalty discount
@@ -41,6 +45,7 @@ directlingam_pd2:
     score_name: conditional_gaussian_score
     score_params:
         penalty_discount: 2
+        discretize: true
     bootstrap_strategy: bootstrap100
 
 # DAGMA algorithms (varying penalty_discount instead of lambda)
@@ -49,4 +54,5 @@ dagma_tetrad_pd2:
     score_name: conditional_gaussian_score
     score_params:
         penalty_discount: 2
+        discretize: true
     bootstrap_strategy: bootstrap100

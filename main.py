@@ -1,31 +1,61 @@
-from src.load_parse import load_csv, load_json, load_yaml
-from src.algorithm_choice import get_discovery_algorithm
-from src.results_writer import write_experiment_results
-from src.logging_config import setup_logging
-from src.mlflow_logger import MLflowLogger
-from src.graph_aux import dag_adj_to_graph
-from src.visualization import Plotter
-from src.metrics import Metrics
-from src.plotting import plot_results
+import json
+import logging
+import os
+import pathlib
+import time
 
+import jpype
+import matplotlib
+import numpy as np
 from causallearn.graph.GeneralGraph import GeneralGraph
-from flatten_dict import flatten
 from dotenv import load_dotenv
+from flatten_dict import flatten
+from jpype import JClass, JException
 from tqdm import tqdm
 
-import numpy as np
-import matplotlib
-import logging
-import pathlib
-import json
-import time
-import os
-
+from src.algorithm_choice import get_discovery_algorithm
+from src.causal_discovery.CausalDiscoveryAlgorithm import CausalDiscoveryAlgorithm
+from src.graph_aux import dag_adj_to_graph
+from src.load_parse import load_csv, load_json, load_yaml
+from src.logging_config import setup_logging
+from src.metrics import Metrics
+from src.mlflow_logger import MLflowLogger
+from src.results_writer import write_experiment_results
+from src.visualization import Plotter, plot_results
 
 matplotlib.use("Agg")  # Non-interactive backend
 
 ALL_ALGORITHMS_CONFIGS = "./configs/algorithms.yaml"
 ALL_DATA_CONFIGS = "./configs/dataset.yaml"
+
+
+def _train_with_java_exceptions(
+    model: CausalDiscoveryAlgorithm, data
+) -> CausalDiscoveryAlgorithm:
+
+    System = JClass("java.lang.System")
+    ByteArrayOutputStream = JClass("java.io.ByteArrayOutputStream")
+    PrintStream = JClass("java.io.PrintStream")
+
+    baos = ByteArrayOutputStream()
+    ps = PrintStream(baos)
+    old_err = System.err
+
+    try:
+        System.setErr(ps)
+        try:
+            model.train(data)  # Train model
+        except JException as ex:
+            raise RuntimeError(f"Tetrad failed: {ex}") from None
+    finally:
+        ps.flush()
+        System.setErr(old_err)
+        ps.close()
+    err_bytes = bytes(baos.toByteArray())
+    err_txt = err_bytes.decode("utf-8", "replace")
+    if "edu.cmu.tetrad" in err_txt or "ExecutionException" in err_txt:
+        raise RuntimeError("Tetrad printed an error:\n" + err_txt)
+    return model
 
 
 def run_experiment(
@@ -51,14 +81,14 @@ def run_experiment(
         true_graph = dag_adj_to_graph(true_adj, "upper_triangular")
         true_edges_dict = load_json(data_params["true_edges_dict"])
 
-        # Resample data if larger than 2000 samples
-        if len(data) > 2000:
-            logging.info(
-                f"Dataset size {len(data)} exceeds 2000, resampling to 2000 samples"
-            )
-            np.random.seed(42)
-            sample_indices = np.random.choice(len(data), size=2000, replace=False)
-            data = data[sample_indices]
+        # # Resample data if larger than 2000 samples
+        # if len(data) > 2000:
+        #     logging.info(
+        #         f"Dataset size {len(data)} exceeds 2000, resampling to 2000 samples"
+        #     )
+        #     np.random.seed(42)
+        #     sample_indices = np.random.choice(len(data), size=2000, replace=False)
+        #     data = data[sample_indices]
 
         # Load selected model
         config_params = load_yaml(ALL_ALGORITHMS_CONFIGS)[algorithm_tag]
@@ -66,7 +96,7 @@ def run_experiment(
 
         # Train model to discover causal structure and measure time
         start_time = time.time()
-        model.train(data)
+        model = _train_with_java_exceptions(model, data)
         training_time = time.time() - start_time
 
         # Evaluate and get metrics
@@ -133,8 +163,8 @@ if __name__ == "__main__":
         # # "adult_dataset",
         # "ruta_synth_normal_4000",
         # "ruta_synth_uniform_4000",
-        # # "ruta_synth_normal_100",
-        # # "ruta_synth_uniform_1000",
+        "ruta_synth_normal_100",
+        # "ruta_synth_uniform_1000",
         # # "ruta_synth_normal_1000",
         # # "ruta_synth_uniform_10000",
         # # "ruta_synth_normal_10000",
@@ -152,12 +182,12 @@ if __name__ == "__main__":
         # # "csuite_large_backdoor",
         # "csuite_large_backdoor_binary_t",
         # "csuite_mixed_simpson",
-        "csuite_mixed_confounding",
+        # "csuite_mixed_confounding",
     )
     algorithm_tags = [
         # "pc_tetrad_01",
-        # "pc_tetrad_05",
-        "pc_tetrad_10",
+        "pc_tetrad_05",
+        # "pc_tetrad_10",
         # "fges_tetrad_pd1",
         # "fges_tetrad_pd2",
         # "fges_tetrad_pd4",
@@ -176,7 +206,7 @@ if __name__ == "__main__":
     ]
 
     experiment_name = "resampled_focused_experiments_tetrad"
-    MAX_RETRIES = 2
+    MAX_RETRIES = 3
 
     for dataset_tag in tqdm(dataset_tags):
         for algorithm_tag in algorithm_tags:

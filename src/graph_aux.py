@@ -1,11 +1,13 @@
+from typing import Dict, List, Optional, Tuple
+
+import networkx as nx
 import numpy as np
 import pydot
+from causallearn.graph.Edge import Edge
+from causallearn.graph.Endpoint import Endpoint
 from causallearn.graph.GeneralGraph import GeneralGraph
 from causallearn.graph.GraphNode import GraphNode
-from causallearn.graph.Endpoint import Endpoint
-from causallearn.graph.Edge import Edge
 from causallearn.graph.Node import Node
-from typing import Dict, List, Optional, Tuple
 
 
 def dag_adj_to_graph(
@@ -14,7 +16,7 @@ def dag_adj_to_graph(
 ) -> GeneralGraph:
     """Converts an adjacency matrix to a causallearn.GeneralGraph"""
 
-    nodes = list[Node]([GraphNode(f"X{i}") for i in range(1, dag_adj.shape[0] + 1)])
+    nodes = list[Node]([GraphNode(f"X{i}") for i in range(dag_adj.shape[0])])
     graph = GeneralGraph(nodes)
 
     if adj_type == "lower_triangular":
@@ -86,3 +88,19 @@ def get_graph_skeleton(graph: GeneralGraph) -> GeneralGraph:
                 skeleton.add_edge(edge)
 
     return skeleton
+
+
+def networkx_to_edge_dict(graph: nx.DiGraph) -> dict:
+    nodes = sorted([str(node) for node in graph.nodes()])
+    edge_dict = {}
+    for i, source in enumerate(nodes):
+        for j, target in enumerate(nodes[i + 1 :]):
+            edge_key = (f"{source}", f"{target}")
+            if graph.has_edge(source, target):
+                edge_dict[edge_key] = "source->target"
+            elif graph.has_edge(target, source):
+                edge_dict[edge_key] = "target->source"
+            else:
+                edge_dict[edge_key] = "no_edge"
+
+    return edge_dict

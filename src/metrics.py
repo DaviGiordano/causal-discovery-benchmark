@@ -15,9 +15,9 @@ class Metrics:
         training_time: float,
         true_graph: GeneralGraph,
         est_graph: GeneralGraph,
-        est_edges_dict: dict = None,
-        true_edges_dict: dict = None,
-        edge_probabilities: dict = None,
+        est_edges_dict: dict | None = None,
+        true_edges_dict: dict | None = None,
+        edge_probabilities: dict | None = None,
     ) -> None:
         self.true_graph = true_graph
         self.est_graph = est_graph
@@ -120,13 +120,19 @@ class Metrics:
         if normalize_by == "possible_edges":
             num_nodes = len(self.true_graph.get_nodes())
             num_possible_edges = num_nodes * (num_nodes - 1) / 2
+            if num_possible_edges == 0:
+                return 0.0
             return round(value / num_possible_edges, 4)
         elif normalize_by == "true_support":
             true_support = self.true_graph.get_num_edges()
+            if true_support == 0:
+                return 0.0
             return round(value / true_support, 4)
         elif normalize_by == "est_support":
-            true_support = self.est_graph.get_num_edges()
-            return round(value / true_support, 4)
+            est_support = self.est_graph.get_num_edges()
+            if est_support == 0:
+                return 0.0
+            return round(value / est_support, 4)
         else:
             raise NotImplementedError(
                 f"{normalize_by}: normalization method not implemented"
@@ -154,6 +160,8 @@ class Metrics:
 
     def _compute_average_frequency(self) -> float:
         """Compute average frequency of the chosen edges, including absence of edge."""
+        if not self.est_edges_dict or not self.edge_probabilities:
+            return 0.0
         frequencies = []
         for edge_key, chosen_edge in self.est_edges_dict.items():
             frequencies.append(self.edge_probabilities[edge_key][chosen_edge])
@@ -163,6 +171,8 @@ class Metrics:
 
     def _compute_median_frequency(self) -> float:
         """Compute median frequency of the chosen edges, including absence of edge."""
+        if not self.est_edges_dict or not self.edge_probabilities:
+            return 0.0
         frequencies = []
         for edge_key, chosen_edge in self.est_edges_dict.items():
             frequencies.append(self.edge_probabilities[edge_key][chosen_edge])
@@ -172,6 +182,8 @@ class Metrics:
 
     def _compute_min_frequency(self) -> float:
         """Compute minimum frequency of the chosen edges, including absence of edge."""
+        if not self.est_edges_dict or not self.edge_probabilities:
+            return 0.0
         frequencies = []
         for edge_key, chosen_edge in self.est_edges_dict.items():
             frequencies.append(self.edge_probabilities[edge_key][chosen_edge])
@@ -181,6 +193,8 @@ class Metrics:
 
     def _compute_average_edge_frequency(self) -> float:
         """Compute average frequency of the chosen edges, excluding absence of edge"""
+        if not self.est_edges_dict or not self.edge_probabilities:
+            return 0.0
         frequencies = []
         for edge_key, chosen_edge in self.est_edges_dict.items():
             if chosen_edge != "no_edge":
@@ -329,3 +343,45 @@ class Metrics:
         }
 
         return result_metrics
+
+
+import pandas as pd
+
+
+def edge_confusion_matrix(est_edges, true_edges):
+    # Helper: ground truth category
+    def true_category(true):
+        return "No Edge (True)" if true == "no_edge" else "Has Edge (True)"
+
+    # Helper: prediction/error classification
+    def predicted_category(est, true):
+        if est == true:
+            return "Correct"
+        if est == "no_edge" and true != "no_edge":
+            return "Missed edge"
+        if true == "no_edge" and est != "no_edge":
+            return "False edge"
+        if est == "undirected" or true == "undirected":
+            return "Undirected"
+        if {est, true} == {"source->target", "target->source"}:
+            return "Inverted direction"
+        if {est, true} == {"target->source", "source->target"}:
+            return "Inverted direction"
+        return "Other mismatch"
+
+    # Build pairs
+    pairs = [
+        (
+            true_category(true_edges[k]),
+            predicted_category(est_edges.get(k, "missing"), true_edges[k]),
+        )
+        for k in true_edges
+    ]
+
+    # Make confusion matrix
+    cm = pd.crosstab(
+        pd.Series([t for t, _ in pairs], name="True Category"),
+        pd.Series([p for _, p in pairs], name="Error/Prediction Category"),
+    )
+
+    return cm

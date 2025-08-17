@@ -196,7 +196,7 @@ class AcyclicGraphGenerator:
             self._init_variables()
 
         df = pd.DataFrame(
-            index=range(self.npoints), columns=[f"V{i}" for i in range(self.nodes)]
+            index=range(self.npoints), columns=[f"X{i}" for i in range(self.nodes)]
         )
         order = nx.topological_sort(nx.DiGraph(self.adjacency_matrix))
 
@@ -216,10 +216,16 @@ class AcyclicGraphGenerator:
             if rescale and not (self._variable_types[i] == "binary"):
                 col = scale(col)
 
-            df[f"V{i}"] = col
+            df[f"X{i}"] = col
+
+        for i, col in enumerate(df.columns):
+            if self._variable_types[i] == "binary":
+                df[col] = df[col].astype(int)
+            else:
+                df[col] = df[col].astype(float)  # type: ignore
 
         graph = nx.relabel_nodes(
-            nx.DiGraph(self.adjacency_matrix), {i: f"V{i}" for i in range(self.nodes)}
+            nx.DiGraph(self.adjacency_matrix), {i: f"X{i}" for i in range(self.nodes)}
         )
 
         if return_metadata:

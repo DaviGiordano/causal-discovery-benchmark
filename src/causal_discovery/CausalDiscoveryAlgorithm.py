@@ -43,5 +43,6 @@ class CausalDiscoveryAlgorithm(ABC):
     def _set_auxiliary_results(self):
         """Optional auxiliary results, may be called after train."""
         self.est_edge_adj = get_edge_adjacency_matrix(graph=self.est_graph)
+        self.est_adj = self.est_edge_adj  # Set est_adj to the edge adjacency matrix
         self.est_graph_skeleton = get_graph_skeleton(graph=self.est_graph)
         self.is_trained = True
