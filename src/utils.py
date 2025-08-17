@@ -12,13 +12,11 @@ def write_generation_configs(output_file: str = "configs/generation.yaml"):
 
     # Dataset parameters from benchmark_synthetic.py
     nodes_degree_points_list = [
-        # (3, 2, 1000),
         (5, 2, 1000),
         (10, 2, 1000),
         (20, 2, 1000),
         (40, 2, 1000),
         (50, 2, 1000),
-        # (100, 10, 10000),
     ]
     mechanism_settings = [
         (["linear"], [1.0]),
