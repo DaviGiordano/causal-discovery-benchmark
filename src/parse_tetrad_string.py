@@ -140,7 +140,7 @@ def str_to_edge_dict(graph_string: str) -> dict:
         if " [" not in line:
             continue
 
-        edge_info = line.split(" [", 1)[0][3:].strip()
+        edge_info = line.split(" [", 1)[0].split(".", 1)[1].strip()
         edge_components = edge_info.split(" ", 3)
         if len(edge_components) < 3:
             continue
