@@ -13,6 +13,7 @@ backup_2/*
 .cursorignore
 analysis/*.md
 *.png
+*.zip 
 
 analysis/*
 *.pyc
