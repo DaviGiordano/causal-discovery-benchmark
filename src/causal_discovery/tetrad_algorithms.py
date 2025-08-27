@@ -30,7 +30,16 @@ TEST_METHODS = {
         "default_params": {
             "alpha": 0.01,
             "discretize": True,
+            "num_categories_to_discretize": 3,
             "use_for_mc": False,
+        },
+    },
+    "degenerate_gaussian_test": {
+        "func_name": "use_degenerate_gaussian_test",
+        "default_params": {
+            "alpha": 0.01,
+            "use_for_mc": False,
+            "singularity_lambda": 0.0,
         },
     },
 }
@@ -45,6 +54,14 @@ SCORE_METHODS = {
             "discretize": True,
             "num_categories_to_discretize": 3,
             "structure_prior": 0,
+        },
+    },
+    "degenerate_gaussian_score": {
+        "func_name": "use_degenerate_gaussian_score",
+        "default_params": {
+            "penalty_discount": 1,
+            "structure_prior": 0,
+            "singularity_lambda": 0.0,
         },
     },
 }
@@ -111,8 +128,15 @@ class TetradAlgorithm(CausalDiscoveryAlgorithm):
 
         bootstrap_strategy = self.config_params.get("bootstrap_strategy", "")
 
-        if bootstrap_strategy == "bootstrap100":
-            number_resampling = 10
+        if bootstrap_strategy == "bootstrap_100_100":
+            number_resampling = 100
+            percent_resample_size = 100
+            with_replacement = True
+            add_original = False
+            resampling_ensemble = 3
+            seed = 42
+        elif bootstrap_strategy == "bootstrap_2_100":
+            number_resampling = 2
             percent_resample_size = 100
             with_replacement = True
             add_original = False
