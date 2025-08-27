@@ -25,6 +25,7 @@ from src.causal_discovery.tetrad_algorithms import (
 )
 from src.data.acyclic_graph_generator_more_mechanisms import AcyclicGraphGenerator
 from src.graph_aux import dag_adj_to_graph, networkx_to_edge_dict
+from src.knowledge_generator import generate_temporal_knowledge, save_knowledge_file
 from src.logging_config import setup_logging
 from src.metrics import Metrics, edge_confusion_matrix
 
@@ -62,7 +63,7 @@ def get_algorithm_class(algorithm_name):
         raise ValueError(f"Unknown algorithm: {algorithm_name}")
 
 
-def save_generated_data(data, graph, metadata, gen_params, output_path):
+def save_generated_data(data, graph, metadata, gen_params, output_path, num_tiers=None):
     """Save generated data, graph, and metadata to files if they don't exist."""
     data_csv_path = output_path / "data.csv"
     # Save the generated data as CSV
@@ -92,14 +93,16 @@ def save_generated_data(data, graph, metadata, gen_params, output_path):
     with open(metadata_path, "w") as f:
         json.dump(metadata_dict, f, indent=2)
 
-    if logging.getLogger().isEnabledFor(logging.INFO):
-        logging.info(f"Saved generated data to {data_csv_path}")
-        logging.info(f"Saved graph edges to {graph_csv_path}")
-        logging.info(f"Saved metadata to {metadata_path}")
-    else:
-        print(f"Saved generated data to {data_csv_path}")
-        print(f"Saved graph edges to {graph_csv_path}")
-        print(f"Saved metadata to {metadata_path}")
+    # Generate and save knowledge file if num_tiers is specified
+    if num_tiers is not None:
+        knowledge_content = generate_temporal_knowledge(graph, num_tiers)
+        knowledge_path = output_path / "knowledge.txt"
+        save_knowledge_file(knowledge_content, str(knowledge_path))
+        logging.info(f"Generated and saved temporal knowledge with {num_tiers} tiers")
+
+    logging.info(f"Saved generated data to {data_csv_path}")
+    logging.info(f"Saved graph edges to {graph_csv_path}")
+    logging.info(f"Saved metadata to {metadata_path}")
 
 
 def save_experiment_files(
@@ -165,6 +168,7 @@ def run_single_experiment(
     algorithm_configs,
     output_path=None,
     csv_path=None,
+    num_tiers=None,
 ):
     """Run a single experiment with given generation and algorithm configurations."""
     if output_path:
@@ -196,7 +200,7 @@ def run_single_experiment(
 
     # Save generated data, graph, and metadata if output path is specified and data.csv doesn't exist
     if output_path:
-        save_generated_data(data, graph, metadata, gen_params, output_path)
+        save_generated_data(data, graph, metadata, gen_params, output_path, num_tiers)
 
     # 2. Create true graph from adjacency matrix
     true_adj = metadata.adjacency_matrix
@@ -213,7 +217,7 @@ def run_single_experiment(
 
     # Train model and measure time
     start_time = time.time()
-    algorithm.train(data)
+    algorithm.train(data, output_path=output_path)
     training_time = time.time() - start_time
 
     # 4. Calculate metrics
@@ -249,6 +253,7 @@ def run_single_experiment(
         logging.info(f"Algorithm: {alg_config['algorithm_name']}")
         logging.info(f"Training time: {training_time:.4f} seconds")
         logging.info(f"Edge confusion matrix: {cm}")
+        logging.info(f"Graph: \n{algorithm.graph_string}")
 
         logging.info("=== METRICS ===")
         adj_metrics = metrics_results["adjacency"]
@@ -275,6 +280,7 @@ def run_single_experiment(
         print(f"Mechanisms: {gen_params['mechanism_pool']}")
         print(f"Algorithm: {alg_config['algorithm_name']}")
         print(f"Training time: {training_time:.4f} seconds")
+        print(f"Graph: \n{algorithm.graph_string}")
         print()
 
         print("=== METRICS ===")
@@ -314,6 +320,7 @@ def run_single_experiment(
         "expected_degree": gen_params["expected_degree"],
         "true_num_edges": len(graph.edges),
         "mechanism": "-".join(gen_params["mechanism_pool"]),
+        "num_tiers": num_tiers,
         "training_time": training_time,
         "skeleton_shd": metrics_results["skeleton_shd"],
         "skeleton_precision": adj_metrics["precision"],
@@ -381,6 +388,12 @@ def main():
     parser.add_argument(
         "--csv", "-c", help="CSV file path to record experiment results (appending)"
     )
+    parser.add_argument(
+        "--num-tiers",
+        "-t",
+        type=int,
+        help="Number of temporal tiers for knowledge constraints",
+    )
 
     args = parser.parse_args()
 
@@ -392,6 +405,10 @@ def main():
         parser.error(
             "Both --generation and --algorithm are required (use --list to see available options)"
         )
+
+    # Validate num_tiers if provided
+    if args.num_tiers is not None and args.num_tiers <= 0:
+        parser.error("--num-tiers must be positive if provided")
 
     # Setup output directory and logging if specified
     output_path = None
@@ -438,6 +455,7 @@ def main():
                     algorithm_configs,
                     output_path,
                     args.csv,
+                    args.num_tiers,
                 )
 
                 if output_path:

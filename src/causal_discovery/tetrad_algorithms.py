@@ -170,15 +170,44 @@ class TetradAlgorithm(CausalDiscoveryAlgorithm):
             search.set_bootstrapping(**bootstrap_params)
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
 
+    def _set_knowledge(self, search, output_path=None):
+        """
+        Set knowledge constraints for the search if a knowledge file exists.
+
+        Parameters:
+        -----------
+        search : TetradSearch
+            TetradSearch instance to configure
+        output_path : str or pathlib.Path, optional
+            Path to the output directory where knowledge.txt might be located
+        """
+        if output_path is None:
+            return
+
+        try:
+            import pathlib
+
+            knowledge_file = pathlib.Path(output_path) / "knowledge.txt"
+
+            if knowledge_file.exists():
+                logger.info(f"Loading knowledge from {knowledge_file}")
+                search.load_knowledge(str(knowledge_file))
+                logger.info("Knowledge loaded successfully")
+            else:
+                logger.debug(f"No knowledge file found at {knowledge_file}")
+        except Exception as e:
+            logger.warning(f"Failed to load knowledge file: {e}")
+            # Don't crash the experiment, just log the warning
+
     def _algorithm_specific_train(self, search: TetradSearch) -> TetradSearch:
         raise NotImplementedError()
 
-    def train(self, data: np.ndarray, node_names: list = []) -> None:
+    def train(self, data: np.ndarray, node_names: list = [], output_path=None) -> None:
         """Train the algorithm on the provided data."""
         if not node_names:
             node_names = [f"X{i}" for i in range(data.shape[1])]
@@ -189,6 +218,9 @@ class TetradAlgorithm(CausalDiscoveryAlgorithm):
         search.set_verbose(False)
 
         self._set_test_and_score(search)
+
+        # Set knowledge constraints if available
+        self._set_knowledge(search, output_path)
 
         if self.config_params.get("bootstrap_strategy"):
             self._set_bootstrap(search)
@@ -230,7 +262,7 @@ class PCTetrad(TetradAlgorithm):
 
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
@@ -270,7 +302,7 @@ class BOSSTetrad(TetradAlgorithm):
 
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
@@ -308,7 +340,7 @@ class FGESTetrad(TetradAlgorithm):
 
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
@@ -352,7 +384,7 @@ class GRASPTetrad(TetradAlgorithm):
 
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
@@ -387,7 +419,7 @@ class DAGMATetrad(TetradAlgorithm):
 
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
@@ -409,7 +441,7 @@ class DirectLiNGAMTetrad(TetradAlgorithm):
 
         except Exception as ex:
             logger.error(
-                f"Exception: {ex.message()}",
+                f"Exception: {str(ex)}",
                 f"Config params: {self.config_params}",
             )
             raise ex
