@@ -168,16 +168,7 @@ class CausalDiscoveryAnalyzer:
                 value = row[metric.key]
                 # Handle NaN values in F1 scores (can occur when precision and recall are both 0)
                 if pd.isna(value) and metric.key in ["f1", "skeleton_f1"]:
-                    # If precision and recall are both 0, F1 should be 0
-                    if metric.key == "f1":
-                        precision = row.get("precision", 0)
-                        recall = row.get("recall", 0)
-                        value = 0.0 if (precision == 0 and recall == 0) else np.nan
-                    elif metric.key == "skeleton_f1":
-                        precision = row.get("skeleton_precision", 0)
-                        recall = row.get("skeleton_recall", 0)
-                        value = 0.0 if (precision == 0 and recall == 0) else np.nan
-
+                    value = 0.0
                 metric_values[metric.key] = value
 
             data_by_dataset[dataset][algorithm] = metric_values
