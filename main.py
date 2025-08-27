@@ -78,7 +78,7 @@ def run_experiment(
         data_params = load_yaml(ALL_DATA_CONFIGS)[dataset_tag]
         data = load_csv(data_params["train_fpath"])
         true_adj = load_csv(data_params["true_adj_fpath"])
-        true_graph = dag_adj_to_graph(true_adj, "upper_triangular")
+        true_graph = dag_adj_to_graph(true_adj, "line_to_column")
         true_edges_dict = load_json(data_params["true_edges_dict"])
 
         # # Resample data if larger than 2000 samples
