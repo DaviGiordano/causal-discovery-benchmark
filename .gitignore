@@ -12,7 +12,9 @@ backup_2/*
 .venv/*
 .cursorignore
 analysis/*.md
+*.png
 
+analysis/*
 *.pyc
 *.pyo
 *.pyd
