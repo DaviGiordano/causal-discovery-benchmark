@@ -200,7 +200,7 @@ def run_single_experiment(
 
     # 2. Create true graph from adjacency matrix
     true_adj = metadata.adjacency_matrix
-    true_graph = dag_adj_to_graph(true_adj, "upper_triangular")
+    true_graph = dag_adj_to_graph(true_adj, "line_to_column")
     true_edges_dict = networkx_to_edge_dict(graph)
 
     # 3. Run the algorithm

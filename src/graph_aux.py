@@ -12,19 +12,19 @@ from causallearn.graph.Node import Node
 
 def dag_adj_to_graph(
     dag_adj: np.ndarray,
-    adj_type: str = "upper_triangular",
+    adj_type: str = "line_to_column",
 ) -> GeneralGraph:
     """Converts an adjacency matrix to a causallearn.GeneralGraph"""
 
     nodes = list[Node]([GraphNode(f"X{i}") for i in range(dag_adj.shape[0])])
     graph = GeneralGraph(nodes)
 
-    if adj_type == "lower_triangular":
+    if adj_type == "column_to_line":
         for i in range(dag_adj.shape[0]):
             for j in range(dag_adj.shape[1]):
                 if dag_adj[i, j] != 0 and not np.isnan(dag_adj[i, j]):
                     graph.add_directed_edge(graph.nodes[j], graph.nodes[i])
-    elif adj_type == "upper_triangular":
+    elif adj_type == "line_to_column":
         for i in range(dag_adj.shape[0]):
             for j in range(dag_adj.shape[1]):
                 if dag_adj[i, j] != 0 and not np.isnan(dag_adj[i, j]):
