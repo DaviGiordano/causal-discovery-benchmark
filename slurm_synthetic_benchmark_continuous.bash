@@ -2,126 +2,116 @@
 #SBATCH --job-name=causal_discovery_benchmark_continuous
 #SBATCH --output=slurm_logs_continuous/job_%A_%a.out
 #SBATCH --error=slurm_logs_continuous/job_%A_%a.err
-#SBATCH --array=1-270
+#SBATCH --array=1-180
 #SBATCH --time=24:00:00
 
-# Create logs directory if it doesn't exist
 mkdir -p slurm_logs_continuous
+mkdir -p results_tiers
 
-# Create results directory if it doesn't exist
-mkdir -p results_continuous
-
-# Define all generation configurations
 GENERATIONS=(
-    "erdos_n5_d2_rootgmm_mechbinary_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechlinear-binary_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechlinear_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechnn-binary_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechnn_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechpolynomial-binary_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechpolynomial_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
-    "erdos_n5_d2_rootgmm_mechsigmoid_add_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechbinary_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechlinear-binary_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechlinear_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechnn-binary_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechnn_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechpolynomial-binary_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechpolynomial_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
-    "erdos_n10_d2_rootgmm_mechsigmoid_add_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechbinary_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechlinear-binary_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechlinear_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechnn-binary_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechnn_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechpolynomial-binary_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechpolynomial_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
-    "erdos_n20_d2_rootgmm_mechsigmoid_add_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechbinary_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechlinear-binary_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechlinear_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechnn-binary_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechnn_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechpolynomial-binary_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechpolynomial_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
-    "erdos_n40_d2_rootgmm_mechsigmoid_add_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechbinary_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechlinear-binary_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechlinear_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechnn-binary_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechnn_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechpolynomial-binary_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechpolynomial_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
-    "erdos_n50_d2_rootgmm_mechsigmoid_add_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechbinary_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechlinear-binary_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechlinear_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechnn-binary_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechnn_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechpolynomial-binary_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechpolynomial_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
+#   "erdos_n5_d2_rootgmm_mechsigmoid_add_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechbinary_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechlinear-binary_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechlinear_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechnn-binary_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechnn_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechpolynomial-binary_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechpolynomial_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
+#   "erdos_n10_d2_rootgmm_mechsigmoid_add_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechbinary_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechlinear-binary_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechlinear_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechnn-binary_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechnn_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechpolynomial-binary_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechpolynomial_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
+#   "erdos_n20_d2_rootgmm_mechsigmoid_add_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechbinary_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechlinear-binary_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechlinear_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechnn-binary_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechnn_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechpolynomial-binary_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechpolynomial_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
+  "erdos_n30_d2_rootgmm_mechsigmoid_add_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechbinary_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechlinear-binary_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechlinear_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechnn-binary_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechnn_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechpolynomial-binary_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechpolynomial_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
+#   "erdos_n40_d2_rootgmm_mechsigmoid_add_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechbinary_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechlinear-binary_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechlinear_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechnn-binary_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechnn_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechpolynomial-binary_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechpolynomial_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechsigmoid_add-binary_noisegaussian"
+#   "erdos_n50_d2_rootgmm_mechsigmoid_add_noisegaussian"
 )
 
-# Define all algorithm configurations
 ALGORITHMS=(
-    "boss_tetrad_pd2"
-    "dagma_tetrad_pd2"
-    "directlingam_pd2"
-    "fges_tetrad_pd2"
-    "grasp_tetrad_pd2"
-    "pc_tetrad_05"
+  "boss_tetrad_pd2"
+  "fges_tetrad_pd2"
+  "grasp_tetrad_pd2"
+  "pc_tetrad_05"
 )
 
-# Calculate which generation and algorithm to use for this array task
-# Array tasks are 1-indexed, so subtract 1 to get 0-indexed
+NUM_TIERS=("1" "2" "3" "4" "5")
+
 TASK_IDX=$((SLURM_ARRAY_TASK_ID - 1))
 
-# Calculate generation and algorithm indices
-# Each generation gets tested with all algorithms
-GENERATION_IDX=$((TASK_IDX / ${#ALGORITHMS[@]}))
-ALGORITHM_IDX=$((TASK_IDX % ${#ALGORITHMS[@]}))
+num_gen=${#GENERATIONS[@]}
+num_alg=${#ALGORITHMS[@]}
+num_tiers=${#NUM_TIERS[@]}
 
-# Get the specific generation and algorithm names
+GENERATION_IDX=$(( TASK_IDX / (num_alg * num_tiers) ))
+ALGORITHM_IDX=$(( (TASK_IDX / num_tiers) % num_alg ))
+TIER_IDX=$(( TASK_IDX % num_tiers ))
+
 GENERATION_NAME="${GENERATIONS[$GENERATION_IDX]}"
 ALGORITHM_NAME="${ALGORITHMS[$ALGORITHM_IDX]}"
+TIER="${NUM_TIERS[$TIER_IDX]}"
 
-# Print job information
-echo "Starting job array task $SLURM_ARRAY_TASK_ID of $SLURM_ARRAY_TASK_MAX"
-echo "Job ID: $SLURM_ARRAY_JOB_ID"
-echo "Task ID: $SLURM_ARRAY_TASK_ID"
-echo "Running on node: $SLURMD_NODENAME"
-echo "Working directory: $PWD"
-echo "Date: $(date)"
-echo ""
-echo "Task breakdown:"
-echo "  Generation index: $GENERATION_IDX"
-echo "  Algorithm index: $ALGORITHM_IDX"
-echo "  Generation: $GENERATION_NAME"
-echo "  Algorithm: $ALGORITHM_NAME"
-echo ""
+echo "Task $SLURM_ARRAY_TASK_ID | gen=$GENERATION_NAME alg=$ALGORITHM_NAME tiers=$TIER"
 
-# Create output directory for this specific experiment
-OUTPUT_DIR="results_tiers5/${GENERATION_NAME}/${ALGORITHM_NAME}"
+OUTPUT_DIR="results_tiers/${GENERATION_NAME}/${ALGORITHM_NAME}/t${TIER}"
 mkdir -p "$OUTPUT_DIR"
 
-# Create CSV file for results
-CSV_FILE="results_tiers5/benchmark_results.csv"
+CSV_FILE="results_tiers/benchmark_results.csv"
 
-# Construct the command
-COMMAND="python benchmark_synthetic_continuous.py --generation $GENERATION_NAME --algorithm $ALGORITHM_NAME --output-dir $OUTPUT_DIR --csv $CSV_FILE -t 5 --retries 3"
+COMMAND="python benchmark_synthetic_continuous.py \
+  --generation $GENERATION_NAME \
+  --algorithm $ALGORITHM_NAME \
+  --output-dir $OUTPUT_DIR \
+  --csv $CSV_FILE \
+  -t $TIER \
+  --retries 3"
 
-echo "Executing command: $COMMAND"
-echo "----------------------------------------"
-
-# Execute the command
+echo "Executing: $COMMAND"
 eval $COMMAND
+status=$?
 
-# Check exit status
-if [ $? -eq 0 ]; then
-    echo "Command completed successfully"
-    echo "Results saved to: $OUTPUT_DIR"
-    echo "CSV results appended to: $CSV_FILE"
+if [ $status -eq 0 ]; then
+  echo "OK -> $OUTPUT_DIR (CSV: $CSV_FILE)"
 else
-    echo "Command failed with exit code $?"
-    exit 1
+  echo "Failed with exit code $status"
+  exit $status
 fi
 
-echo "Job completed at: $(date)"
+echo "Done at: $(date)"
