@@ -2,7 +2,7 @@
 #SBATCH --job-name=causal_discovery_benchmark_continuous
 #SBATCH --output=slurm_logs_continuous/job_%A_%a.out
 #SBATCH --error=slurm_logs_continuous/job_%A_%a.err
-#SBATCH --array=1-216
+#SBATCH --array=1-270
 #SBATCH --time=24:00:00
 
 # Create logs directory if it doesn't exist
@@ -99,14 +99,14 @@ echo "  Algorithm: $ALGORITHM_NAME"
 echo ""
 
 # Create output directory for this specific experiment
-OUTPUT_DIR="results_continuous/${GENERATION_NAME}/${ALGORITHM_NAME}"
+OUTPUT_DIR="results_tiers5/${GENERATION_NAME}/${ALGORITHM_NAME}"
 mkdir -p "$OUTPUT_DIR"
 
 # Create CSV file for results
-CSV_FILE="results_continuous/benchmark_results.csv"
+CSV_FILE="results_tiers5/benchmark_results.csv"
 
 # Construct the command
-COMMAND="python benchmark_synthetic_continuous.py --generation $GENERATION_NAME --algorithm $ALGORITHM_NAME --output-dir $OUTPUT_DIR --csv $CSV_FILE --retries 3"
+COMMAND="python benchmark_synthetic_continuous.py --generation $GENERATION_NAME --algorithm $ALGORITHM_NAME --output-dir $OUTPUT_DIR --csv $CSV_FILE -t 5 --retries 3"
 
 echo "Executing command: $COMMAND"
 echo "----------------------------------------"
